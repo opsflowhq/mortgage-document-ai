@@ -1,0 +1,11 @@
+{
+    "editor.quickSuggestions": {
+        "strings": "on"
+    },
+    "editor.colorDecorators": true,
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "tailwindCSS.validate": true,
+    
+}
