@@ -20,7 +20,7 @@ const processDocument = async (rawDocument: Document) => {
     console.log('PAID REQUEST TO THE SERVER');
 
     const data = await response.json() as ProcessedDocument;
-
+    console.log(data)
     return data;
 }
 
