@@ -7,16 +7,19 @@ export interface PageAnchor {
   boundingPoly: Point[],
 }
 
-export interface FormFieldValue {
+export interface DocumentFieldValue {
   value: string | null;
   confidence: number;
   pageAnchor?: PageAnchor[]
 }
 
-export type NestedFormFieldsMap = {
-  [key: string]: {
-    [key: string]: FormFieldValue;
-  };
+
+export type DocumentData = {
+  [key: string]: DocumentEntityData;
+};
+
+export type DocumentEntityData = {
+  [key: string]: DocumentFieldValue;
 };
 
 export interface Document{
@@ -43,7 +46,7 @@ export interface Page {
 
 export interface ProcessedDocument {
   pages: Page[],
-  fields: NestedFormFieldsMap,
+  data: DocumentData,
 }
 
 export namespace Form1003 {
@@ -96,18 +99,21 @@ export namespace Form1003 {
     BORROWER_FORMER_ADDRESS_UNIT_1A = "borrower_former_address_unit_1a",
   }
 
-  export interface FormFieldMeta {
+  export interface DocumentFieldModel {
     label: string;
     key: FieldId;
   }
 
+  export interface DocumentEntityFieldsModel { [key: string]: DocumentFieldModel };
 
   interface IEntity {
     label: string;
-    fields: { [key: string]: FormFieldMeta };
+    fields: DocumentEntityFieldsModel;
   }
 
-  export const entityFieldMap: { [key: string]: IEntity } = {
+  export type DocumentModel = { [key: string]: IEntity };
+
+  export const documentModel:  DocumentModel = {
     borrower: {
       label: "Borrower",
       fields: {
@@ -157,10 +163,10 @@ export namespace Form1003 {
     },
   };
 
-  export type EntityId = keyof typeof entityFieldMap;
-  export type FieldTypes = keyof typeof entityFieldMap[EntityId]['fields']
+  export type EntityId = keyof typeof documentModel;
+  export type FieldTypes = keyof typeof documentModel[EntityId]['fields']
 
 
-  export type FlatFormFieldsMap = { [key in FieldId]: FormFieldValue };
+  export type FlatFormFieldsMap = { [key in FieldId]: DocumentFieldValue };
  
 }

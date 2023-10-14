@@ -1,11 +1,12 @@
 'use client';
 
-import { Document, NestedFormFieldsMap, Page, ProcessedDocument } from "@urla1003/types";
+import { Document, Form1003, ProcessedDocument } from "@urla1003/types";
 import { useCallback, useEffect, useState } from "react";
 import Image from 'next/image'
 
 import useSWR from "swr";
 import DocumentViewer from "@/components/DocumentViewer/DocumentViewer";
+import DocumentEditor from "@/components/DocumentEditor/DocumentEditor";
 
 
 const processDocument = async (rawDocument: Document) => {
@@ -30,7 +31,12 @@ export default function DocumentPage({ params }: { params: { documentId: string 
     const documentId = params.documentId;
     const [rawDocument, setRawDocument] = useState<null | Document>(null);
     const { data: processedDocument, error, isLoading } = useSWR(rawDocument, processDocument);
-    
+
+
+    const documentModel = Form1003.documentModel;
+    const documentData = processedDocument?.data;
+    const documentPages = processedDocument?.pages;
+
     useEffect(() => {
         const documentJson = localStorage.getItem(documentId);
         if (documentJson) setRawDocument(JSON.parse(documentJson));
@@ -39,17 +45,18 @@ export default function DocumentPage({ params }: { params: { documentId: string 
 
 
     return (
-        <div style={{ display: 'grid', gridTemplateColumns: "450px auto", height: '100vh' }}>
-            <div style={{ background: "grey" }}>
-                fs
-            </div>
-            <div className="">
-                <DocumentViewer 
-                    isLoading={isLoading}
-                    pages={processedDocument?.pages}
-                    fields={processedDocument?.fields}
-                />
-            </div>
+        <div className="grid grid-cols-[450px,1fr] h-screen">
+            <DocumentEditor
+                isLoading={isLoading}
+                documentModel={documentModel}
+                documentData={documentData}
+            />
+            <DocumentViewer
+                isLoading={isLoading}
+                documentPages={documentPages}
+                documentData={documentData}
+                hoveredField={'borrower.name'}
+            />
         </div>
     );
 }

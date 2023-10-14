@@ -7,7 +7,7 @@ import {DocumentProcessorServiceClient} from '@google-cloud/documentai';
 import {promises as fs} from 'fs';
 import { google } from '@google-cloud/documentai/build/protos/protos';
 
-import {Form1003, FormFieldValue, NestedFormFieldsMap, PageAnchor, Point} from "@urla1003/types";
+import {Form1003, DocumentData, PageAnchor, Point, ProcessedDocument, Page, DocumentFieldValue} from "@urla1003/types";
 
 const documentAiClient = new DocumentProcessorServiceClient();
 const processorName = "projects/614556138526/locations/us/processors/a596e4ceda5829e";
@@ -88,8 +88,8 @@ app.post("/document/process", upload.single('document'), async (req, res) => {
   }
 
   //TODO: Extract into separate function
-  const newMappedEntity: NestedFormFieldsMap = {};
-  const form1003Map = Form1003.entityFieldMap
+  const newMappedEntity: DocumentData = {};
+  const form1003Map = Form1003.documentModel;
   const form1003Keys = Object.keys(form1003Map);
   
   for (const key of form1003Keys) {
@@ -97,7 +97,7 @@ app.post("/document/process", upload.single('document'), async (req, res) => {
     const entityFieldsMeta = entity.fields;
     // newMappedEntity[key] = {};
 
-    let properties: {[key: string]: FormFieldValue} = {};
+    let properties: {[key: string]: DocumentFieldValue} = {};
     for (const fieldKey of Object.keys(entityFieldsMeta)) {
       const fieldMeta = entityFieldsMeta[fieldKey]; 
       const fieldValue = flatForm1003FieldMap[fieldMeta.key];
@@ -106,18 +106,18 @@ app.post("/document/process", upload.single('document'), async (req, res) => {
     newMappedEntity[key] = properties;
   }
 
- 
-  const cleanedPages = document.pages?.map(p => {
-    return {
-      pageNumber: p.pageNumber,
-      image: p.image,
+  if (!document.pages) throw new Error("");
 
+  const cleanedPages = document.pages.map(p => {
+    return {
+      pageNumber: p.pageNumber ? p.pageNumber : 0,
+      image: p.image as Page['image'], //TODO: refactor to check page.image on undefined
     }
   });
   
-  const resultDocument = {
+  const resultDocument: ProcessedDocument = {
     pages: cleanedPages,
-    fields: newMappedEntity,
+    data: newMappedEntity,
   };
 
   res.json(resultDocument);
