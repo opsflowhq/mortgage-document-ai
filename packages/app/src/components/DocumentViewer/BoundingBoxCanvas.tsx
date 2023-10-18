@@ -1,16 +1,31 @@
 import { DocumentData, DocumentFieldValue, Page } from "@urla1003/types";
 import Image from 'next/image'
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Svg, Distance, Circle } from 'react-svg-path';
+import BoundingBox from "./BoundingBox";
+import { useDocumentContext } from "../DocumentProvider";
 
 
-interface BoundingBoxCanvasProps {
-    pageData: DocumentData,
+export interface FieldHoverEvent {
+    entityKey: string;
+    fieldKey: string;
+    pageNumber: Page['pageNumber'];
 }
 
-export default function BoundingBoxCanvas({ pageData }: BoundingBoxCanvasProps) {
+export type FieldHoverEventHandler = (e: FieldHoverEvent | null) => void;
 
-    const [isNoteVisible, setNoteVisible] = useState(false);
+interface BoundingBoxCanvasProps {
+    pageNumber: Page['pageNumber'];
+    pageData: DocumentData;
+
+
+}
+
+function BoundingBoxCanvas({ pageData,pageNumber }: BoundingBoxCanvasProps) {
+
+    // const [isNoteVisible, setNoteVisible] = useState(false);
+    const {setHoveredField, hoveredField} = useDocumentContext();
+
 
     const polygons: JSX.Element[] = [];
 
@@ -21,27 +36,29 @@ export default function BoundingBoxCanvas({ pageData }: BoundingBoxCanvasProps) 
             const field = entity[fieldKey];
 
 
-            //TODO: Refactor Polygon
-            const pointsString = field.pageAnchor[0].boundingPoly.map(p => `${p.x * 100},${p.y * 100}`).join(' ');
             polygons.push(
-                <polygon
+                <BoundingBox 
+                    field={field}
                     key={`${entityKey}.${fieldKey}`}
-                    points={pointsString}
-                    className="fill-blue-500/50 stroke-blue-700/40 stroke-2 hover:cursor-pointer"
-                    vectorEffect={"non-scaling-stroke"}
-                    onClick={() => alert(`Content: ${field.value}, Confidence: ${field.confidence}, Key: ${entityKey}.${fieldKey}`)}
-                    onMouseEnter={(e) => {
-                        setNoteVisible(true);
-                    }}
-                    onMouseLeave={(e) => {
-                        setNoteVisible(false);
-                    }}
+                    onClick={() => alert(`${entityKey}.${fieldKey}`)}
+                    onMouseEnter={() => setHoveredField({entityKey, fieldKey, pageNumber})}
+                    onMouseLeave={() => setHoveredField(null)}
                 />
             );
 
         }
     }
 
+    let fieldHoverBox: JSX.Element | null = null;
+    const isHovered = hoveredField?.pageNumber === pageNumber
+
+    console.log('Hover field', hoveredField);
+    if(isHovered) fieldHoverBox = (
+            <div className="absolute" style={{top: 3}}>
+                <div></div>
+                <div>{pageData[hoveredField.entityKey][hoveredField.fieldKey].value}</div>
+            </div>
+    );
 
 
     return (
@@ -49,9 +66,9 @@ export default function BoundingBoxCanvas({ pageData }: BoundingBoxCanvasProps) 
             <svg width={'100%'} height={'100%'} viewBox="0 0 100 100" preserveAspectRatio="none" >
                 {polygons}
             </svg>
-            <div className="absolute" style={{}}>
-                note
-            </div>
+            {fieldHoverBox}
         </div>
     );
 }
+
+export default memo(BoundingBoxCanvas);

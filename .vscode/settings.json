@@ -7,6 +7,9 @@
         "*.css": "tailwindcss"
     },
     "tailwindCSS.validate": true,
+    "tailwindCSS.experimental.classRegex": [
+        ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+    ],
     "emmet.includeLanguages": {
         "javascript": "javascriptreact"
     },

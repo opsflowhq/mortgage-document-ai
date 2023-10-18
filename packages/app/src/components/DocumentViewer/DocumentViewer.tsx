@@ -1,45 +1,45 @@
 import DocumentPage from "./DocumentPage";
 import { DocumentData, DocumentFieldValue, Page } from "@urla1003/types";
-import { FC } from "react";
+import { FC, memo } from "react";
+import { FieldHoverEvent, FieldHoverEventHandler } from "./BoundingBoxCanvas";
+import { useDocumentContext } from "../DocumentProvider";
 
 
 interface DocumentViewerProps {
-    isLoading: boolean,
-    documentPages?: Page[],
-    documentData?: DocumentData,
-    hoveredField?: string, //{entityKey}.{fieldKey}
+    // isLoading: boolean,
+    // documentPages?: Page[],
+    // documentData?: DocumentData,
+    // hoveredField: FieldHoverEvent | null;
+    // onFieldHover: FieldHoverEventHandler;
 }
 
-export default function DocumentViewer({documentPages, documentData}: DocumentViewerProps) {
-    // console.log("pages >", pages)
-    // console.log('fields', fields);
-    // const flatFields: DocumentFieldValue[] = [];
+function DocumentViewer({}: DocumentViewerProps) {
 
-    
-
-    // console.log(flatFields);
+    const {documentData, documentPages} = useDocumentContext();
+    console.log('Document Viewer Render');
 
     return (
         <div className="bg-gray-300 h-full w-full p-20 overflow-auto">
             {documentData && documentPages?.map((p, i) => {
 
-                // const pageData = ;
-
-                // const fields = flatFields.filter(f => f.pageAnchor?.some(pa => pa.page == i));
                 const pageData = filterDocumentDataByPage(documentData, i);
-                console.log('PAGE DATA ->', pageData);
 
                 return (
                     <DocumentPage 
                         key={p.pageNumber} 
                         page={p}
                         pageData={pageData}
+                        // onFieldHover={onFieldHover}
+                        // hoveredField={hoveredField}
                     />
                 );
             })}
         </div>
     );
 }
+
+export default memo(DocumentViewer);
+
 
 function filterDocumentDataByPage(documentData: DocumentData, pageIndex: string | number) {
     const pageData: DocumentData = {};

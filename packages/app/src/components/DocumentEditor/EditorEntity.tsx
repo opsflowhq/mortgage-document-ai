@@ -1,5 +1,7 @@
 import { DocumentEntityData, DocumentFieldValue, Form1003 } from "@urla1003/types";
 import DocumentField from "./EditorField";
+import { FieldHoverEvent } from "../DocumentViewer/BoundingBoxCanvas";
+import { useDocumentContext } from "../DocumentProvider";
 
 
 interface EditorEntityProps {
@@ -7,12 +9,15 @@ interface EditorEntityProps {
     entityKey: string;
     fieldsModel: Form1003.DocumentEntityFieldsModel;
     fieldsValue?: DocumentEntityData;
+    // hoveredField: FieldHoverEvent | null;
     // field
 }
 
 export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, label }: EditorEntityProps) {
-    // console.log('Entity Fields ->', fieldsModel);
-    // console.log('Entity Field Values ->', fieldsValue);
+
+
+    const {hoveredField} = useDocumentContext();
+
     return (
         <div className="bg-white border-b pt-4">
             <div className="flex items-center h-12 px-4">
@@ -22,11 +27,14 @@ export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, la
                 {Object.keys(fieldsModel).map(fieldKey => {
                     const fieldModel = fieldsModel[fieldKey];
                     const fieldValue = fieldsValue ? fieldsValue[fieldKey] : undefined;
+                    const isHovered = fieldKey === hoveredField?.fieldKey && entityKey === hoveredField.entityKey;
+
                     return (
                         <DocumentField
                             key={`${entityKey}.${fieldKey}`}
                             label={fieldModel.label}
                             value={fieldValue?.value}
+                            isHovered={isHovered}
                         />
                     );
                 })}

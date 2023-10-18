@@ -7,6 +7,8 @@ import Image from 'next/image'
 import useSWR from "swr";
 import DocumentViewer from "@/components/DocumentViewer/DocumentViewer";
 import DocumentEditor from "@/components/DocumentEditor/DocumentEditor";
+import { FieldHoverEvent } from "@/components/DocumentViewer/BoundingBoxCanvas";
+import { DocumentProvider } from "@/components/DocumentProvider";
 
 
 const processDocument = async (rawDocument: Document) => {
@@ -30,8 +32,9 @@ const processDocument = async (rawDocument: Document) => {
 export default function DocumentPage({ params }: { params: { documentId: string } }) {
     const documentId = params.documentId;
     const [rawDocument, setRawDocument] = useState<null | Document>(null);
-    const { data: processedDocument, error, isLoading } = useSWR(rawDocument, processDocument);
+    // const [hoveredField, setHoveredField] = useState<null | FieldHoverEvent>(null);
 
+    const { data: processedDocument, error, isLoading } = useSWR(rawDocument, processDocument);
 
     const documentModel = Form1003.documentModel;
     const documentData = processedDocument?.data;
@@ -42,21 +45,36 @@ export default function DocumentPage({ params }: { params: { documentId: string 
         if (documentJson) setRawDocument(JSON.parse(documentJson));
     }, []);
 
+    // console.log('Hovered field ->', hoveredField);
 
 
     return (
         <div className="grid grid-cols-[450px,1fr] h-screen">
-            <DocumentEditor
+            <DocumentProvider
                 isLoading={isLoading}
+                documentData={documentData}
                 documentModel={documentModel}
-                documentData={documentData}
-            />
-            <DocumentViewer
-                isLoading={isLoading}
                 documentPages={documentPages}
-                documentData={documentData}
-                hoveredField={'borrower.name'}
-            />
+
+            >
+                <DocumentEditor
+                    // isLoading={isLoading}
+                    // documentModel={documentModel}
+                    // documentData={documentData}
+                    // hoveredField={hoveredField}
+                />
+                <DocumentViewer
+
+                    //Document data
+                    // isLoading={isLoading}
+                    // documentPages={documentPages}
+                    // documentData={documentData}
+
+                    //Field hover
+                    // onFieldHover={(e) => setHoveredField(e)}
+                    // hoveredField={hoveredField}
+                />
+            </DocumentProvider>
         </div>
     );
 }

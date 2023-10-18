@@ -1,19 +1,23 @@
 import { DocumentData, Form1003, Page } from "@urla1003/types";
 import DocumentField from "./EditorField";
 import EditorEntity from "./EditorEntity";
+import { FieldHoverEvent } from "../DocumentViewer/BoundingBoxCanvas";
+import { useDocumentContext } from "../DocumentProvider";
 
 
 interface DocumentEditorProps {
-    isLoading: boolean;
-    documentModel: Form1003.DocumentModel; 
-    documentData?: DocumentData;
+    // isLoading: boolean;
+    // documentModel: Form1003.DocumentModel; 
+    // documentData?: DocumentData;
+    // hoveredField: FieldHoverEvent | null;
 }
 
-export default function DocumentEditor({documentModel, documentData}: DocumentEditorProps) {
+export default function DocumentEditor({}: DocumentEditorProps) {
     
     // console.log('Data schema ->', documentModel);
     // console.log('Data ->', documentData);
 
+    const {documentModel, documentData} = useDocumentContext();
 
     return (
         <div className="h-screen  shadow-2xl flex flex-col">
@@ -31,6 +35,7 @@ export default function DocumentEditor({documentModel, documentData}: DocumentEd
                                 label={entityModel.label}
                                 fieldsModel={entityModel.fields}
                                 fieldsValue={entityData}
+                                // hoveredField={hoveredField}
                             />
                         );
                     })
