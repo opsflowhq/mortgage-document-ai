@@ -1,8 +1,9 @@
 import DocumentPage from "./DocumentPage";
 import { DocumentData, DocumentFieldValue, Page } from "@urla1003/types";
-import { FC, memo } from "react";
+import { FC, RefObject, memo, useRef } from "react";
 import { FieldHoverEvent, FieldHoverEventHandler } from "./BoundingBoxCanvas";
 import { useDocumentContext } from "../DocumentProvider";
+import FieldHoverBox from "./FieldHoverBox";
 
 
 interface DocumentViewerProps {
@@ -16,10 +17,12 @@ interface DocumentViewerProps {
 function DocumentViewer({}: DocumentViewerProps) {
 
     const {documentData, documentPages} = useDocumentContext();
+    const documentViewerRef: RefObject<HTMLDivElement> = useRef(null);
+
     console.log('Document Viewer Render');
 
     return (
-        <div className="bg-gray-300 h-full w-full p-20 overflow-auto">
+        <div className="bg-gray-300 h-full w-full p-20 overflow-auto relative" ref={documentViewerRef}>
             {documentData && documentPages?.map((p, i) => {
 
                 const pageData = filterDocumentDataByPage(documentData, i);
@@ -34,6 +37,9 @@ function DocumentViewer({}: DocumentViewerProps) {
                     />
                 );
             })}
+            <FieldHoverBox
+                documentViewerRef={documentViewerRef}
+            />
         </div>
     );
 }

@@ -16,7 +16,7 @@ interface EditorEntityProps {
 export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, label }: EditorEntityProps) {
 
 
-    const {hoveredField} = useDocumentContext();
+    const {hoveredField, setHoveredField} = useDocumentContext();
 
     return (
         <div className="bg-white border-b pt-4">
@@ -35,6 +35,13 @@ export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, la
                             label={fieldModel.label}
                             value={fieldValue?.value}
                             isHovered={isHovered}
+                            onMouseEnter={() => {
+                                setHoveredField({
+                                    entityKey: entityKey,
+                                    fieldKey: fieldKey,
+                                });
+                            }}
+                            onMouseLeave={() => setHoveredField(null)}
                         />
                     );
                 })}

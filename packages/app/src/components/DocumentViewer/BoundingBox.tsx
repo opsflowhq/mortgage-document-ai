@@ -5,15 +5,16 @@ import { Svg, Distance, Circle } from 'react-svg-path';
 
 
 interface BoundingBoxProps {
+    id: string,
     field: DocumentFieldValue;
     onClick?: () => void;
-    onMouseEnter?: () => void;
-    onMouseLeave?: () => void;
+    onMouseEnter?: (e: React.MouseEvent<SVGPolygonElement>) => void;
+    onMouseLeave?: (e: React.MouseEvent<SVGPolygonElement>) => void;
     // entityKey: string;
     // fieldKey: string;
 }
 
-export default function BoundingBox({ field, onClick, onMouseEnter, onMouseLeave }: BoundingBoxProps) {
+export default function BoundingBox({ field, onClick, onMouseEnter, onMouseLeave, id }: BoundingBoxProps) {
 
         
     const pointsString = field.pageAnchor[0].boundingPoly.map(p => `${p.x * 100},${p.y * 100}`).join(' ');
@@ -26,6 +27,7 @@ export default function BoundingBox({ field, onClick, onMouseEnter, onMouseLeave
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
+            data-field-id={id}
         />
     );
 }
