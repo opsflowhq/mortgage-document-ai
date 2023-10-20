@@ -1,6 +1,6 @@
 import { DocumentData, DocumentFieldValue, Page } from "@urla1003/types";
 import Image from 'next/image'
-import { RefObject, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { Svg, Distance, Circle } from 'react-svg-path';
 import { FieldHoverEvent } from "./BoundingBoxCanvas";
 import { useDocumentContext } from "../DocumentProvider";
@@ -9,21 +9,45 @@ import { useDocumentContext } from "../DocumentProvider";
 interface FieldHoverBoxProps {
     // pageNumber: number;
     // pageData: DocumentData;
-    // hoveredField: null | FieldHoverEvent;
-    documentViewerRef: RefObject<HTMLDivElement>;
+    isHovered: boolean;
+    hoveredField: null | FieldHoverEvent;
+    // documentViewerRef: RefObject<HTMLDivElement>;
     onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export default function FieldHoverBox({ onMouseLeave, documentViewerRef }: FieldHoverBoxProps) {
+export default function FieldHoverBox({ onMouseLeave, hoveredField, isHovered }: FieldHoverBoxProps) {
 
-    const { documentModel, hoveredField, documentData } = useDocumentContext();
+    const { documentModel, documentData } = useDocumentContext();
+    const elementRef = useRef<HTMLDivElement | null>(null);
+
+
+    useEffect(() => {
+
+        if (isHovered && elementRef.current) {
+            // elementRef.current?.scrollIntoView({behavior: "smooth", block: 'center'});
+
+            const element = elementRef.current;
+            const rect = element.getBoundingClientRect();
+
+            // Check if the element is partially or entirely outside of the viewport
+            if (
+                rect.bottom > window.innerHeight ||
+                rect.top < 0 ||
+                rect.right > window.innerWidth ||
+                rect.left < 0
+            ) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }, [isHovered])
 
     let fieldHoverBox: JSX.Element | null = null;
     // const isHovered = hoveredField?.pageNumber === pageNumber
 
     const fieldId = `${hoveredField?.entityKey}.${hoveredField?.fieldKey}`;
     const boundingBoxSvg = document.querySelector(`polygon[data-field-id="${fieldId}"`); //Defined at BoundingBox.tsx
-    const documentViewerContainer = documentViewerRef.current;
+    // const documentViewerContainer = documentViewerRef.current;
+    const documentViewerContainer = boundingBoxSvg?.parentElement;
 
     console.log({boundingBoxSvg, documentViewerContainer})
 
@@ -45,6 +69,7 @@ export default function FieldHoverBox({ onMouseLeave, documentViewerRef }: Field
                 style={{ top: offsetY, left: offsetX }}
                 onMouseLeave={onMouseLeave}
                 data-field-id={`${hoveredField.entityKey}.${hoveredField.fieldKey}`}
+                ref={elementRef}
             >
                 <div className="font-bold text-sm">
                     {documentModel[hoveredField.entityKey].fields[hoveredField.fieldKey].label}

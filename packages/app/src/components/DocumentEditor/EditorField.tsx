@@ -6,26 +6,34 @@ import clsx from "clsx";
 interface EditorFieldProps {
     label: string;
     value?: string | null;
-    isHovered: boolean;
+    isHovering: boolean;
+    isEditing: boolean;
     onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
     onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 
-export default function DocumentField({ label, value, isHovered, onMouseEnter, onMouseLeave }: EditorFieldProps) {
+export default function DocumentField({ label, value, isHovering, isEditing, onMouseEnter, onMouseLeave }: EditorFieldProps) {
 
     const elementRef = useRef<HTMLDivElement | null>(null);
 
-    const variant = isHovered ? "hovered" : "plain";
+   
 
     const styleVariants = {
         plain: 'bg-white',
-        hovered: 'bg-purple-200'
+        hovered: 'bg-purple-200',
+        editing: 'shadow-xl relative border',
     };
+
+    let variant: keyof typeof styleVariants 
+
+    variant = 'plain';
+    if (isHovering) variant = 'hovered';
+    if (isEditing) variant = 'editing';
 
     useEffect(() => {
 
-        if (isHovered && elementRef.current) {
+        if (isHovering && elementRef.current) {
             // elementRef.current?.scrollIntoView({behavior: "smooth", block: 'center'});
 
             const element = elementRef.current;
@@ -41,25 +49,34 @@ export default function DocumentField({ label, value, isHovered, onMouseEnter, o
                 element.scrollIntoView({ behavior: 'smooth' });
             }
         }
-    }, [isHovered])
+    }, [isHovering])
 
     return (
-        <div
-            className={clsx("flex flex-row h-12 px-4", styleVariants[variant])}
-            ref={elementRef}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-        >
-            <div className=" flex items-center justify-center pr-1">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                </svg>
+        <div className="px-4">
+            {/* Read only state */}
+            <div
+                className={clsx("flex flex-row h-12", styleVariants[variant])}
+                ref={elementRef}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+            >
+                <div className="flex items-center justify-center pr-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                </div>
+                <div className="flex items-center">
+                    {label}
+                </div>
+                <div className="flex items-center grow justify-end">
+                    {value}
+                </div>
             </div>
-            <div className="flex items-center">
-                {label}
-            </div>
-            <div className="flex items-center grow justify-end">
-                {value}
+            <div>
+                <div>
+                    {/* Input component https://tailwindui.com/components/application-ui/forms/input-groups */}
+                    {/* Basicly turn it into the label and input, and that's it */}
+                </div>
             </div>
         </div>
     );

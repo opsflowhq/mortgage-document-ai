@@ -34,7 +34,8 @@ export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, la
                             key={`${entityKey}.${fieldKey}`}
                             label={fieldModel.label}
                             value={fieldValue?.value}
-                            isHovered={isHovered}
+                            isHovering={isHovered}
+                            isEditing={fieldKey === 'name'}
                             onMouseEnter={() => {
                                 setHoveredField({
                                     entityKey: entityKey,

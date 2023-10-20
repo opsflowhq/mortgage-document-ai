@@ -14,32 +14,32 @@ interface DocumentViewerProps {
     // onFieldHover: FieldHoverEventHandler;
 }
 
-function DocumentViewer({}: DocumentViewerProps) {
+function DocumentViewer({ }: DocumentViewerProps) {
 
-    const {documentData, documentPages} = useDocumentContext();
+    const { documentData, documentPages } = useDocumentContext();
     const documentViewerRef: RefObject<HTMLDivElement> = useRef(null);
 
     console.log('Document Viewer Render');
 
     return (
-        <div className="bg-gray-300 h-full w-full p-20 overflow-auto relative" ref={documentViewerRef}>
-            {documentData && documentPages?.map((p, i) => {
+        <div className="bg-gray-300 h-full w-full p-20 overflow-auto" >
+            <div className="relative" ref={documentViewerRef}>
+                {documentData && documentPages?.map((p, i) => {
 
-                const pageData = filterDocumentDataByPage(documentData, i);
+                    const pageData = filterDocumentDataByPage(documentData, i);
 
-                return (
-                    <DocumentPage 
-                        key={p.pageNumber} 
-                        page={p}
-                        pageData={pageData}
+                    return (
+                        <DocumentPage
+                            key={p.pageNumber}
+                            page={p}
+                            pageData={pageData}
                         // onFieldHover={onFieldHover}
                         // hoveredField={hoveredField}
-                    />
-                );
-            })}
-            <FieldHoverBox
-                documentViewerRef={documentViewerRef}
-            />
+                        />
+                    );
+                })}
+                
+            </div>
         </div>
     );
 }
@@ -52,13 +52,13 @@ function filterDocumentDataByPage(documentData: DocumentData, pageIndex: string 
 
     for (const entityKey in documentData) {
         const entity = documentData[entityKey];
-        
+
         for (const fieldKey in entity) {
             const field = entity[fieldKey];
             const isFieldOnThePage = field.pageAnchor?.some(pa => pa.page == pageIndex);
             const isEntityExistOnThePage = !!pageData[entityKey];
-            
-            
+
+
             if (isFieldOnThePage) {
                 if (!isEntityExistOnThePage) pageData[entityKey] = {};
                 pageData[entityKey][fieldKey] = field;
@@ -69,5 +69,5 @@ function filterDocumentDataByPage(documentData: DocumentData, pageIndex: string 
     return pageData;
 
 }
-  
+
 

@@ -44,12 +44,15 @@ function BoundingBoxCanvas({ pageData, pageNumber }: BoundingBoxCanvasProps) {
 
     const polygons: JSX.Element[] = [];
 
+    let isHoverBoxVisible = false;
+
     for (const entityKey in pageData) {
         const entity = pageData[entityKey];
 
         for (const fieldKey in entity) {
             const field = entity[fieldKey];
 
+            if (entityKey === hoveredField?.entityKey && fieldKey == hoveredField.fieldKey) isHoverBoxVisible = true;
 
             polygons.push(
                 <BoundingBox
@@ -61,25 +64,26 @@ function BoundingBoxCanvas({ pageData, pageNumber }: BoundingBoxCanvasProps) {
                         // const boundingBoxSvg = e.currentTarget;
                         // const parent = boundingBoxSvg.parentElement;
 
-                        if (parent) {
-                            // const svgRect = parent.getBoundingClientRect();
-                            // const elementRect = boundingBoxSvg.getBoundingClientRect();
+                        // if (parent) {
+                        //     // const svgRect = parent.getBoundingClientRect();
+                        //     // const elementRect = boundingBoxSvg.getBoundingClientRect();
 
 
 
-                            // const offsetX = elementRect.left - svgRect.left;
-                            // const offsetY = elementRect.top - svgRect.top + elementRect.height;
+                        // const offsetX = elementRect.left - svgRect.left;
+                        // const offsetY = elementRect.top - svgRect.top + elementRect.height;
 
-                            if (!hoveredField) setHoveredField({
-                                entityKey,
-                                fieldKey,
-                                // pageNumber,
-                                // fieldPageAnchor: {
-                                //     x: offsetX,
-                                //     y: offsetY,
-                                // }
-                            })
-                        }
+
+                        setHoveredField({
+                            entityKey,
+                            fieldKey,
+                            // pageNumber,
+                            // fieldPageAnchor: {
+                            //     x: offsetX,
+                            //     y: offsetY,
+                            // }
+                        })
+                        // }
                     }}
                     onMouseLeave={mouseLeaveHandler}
                 />
@@ -88,11 +92,23 @@ function BoundingBoxCanvas({ pageData, pageNumber }: BoundingBoxCanvasProps) {
         }
     }
 
+    // let fieldHoverBox = null;
+    // if (isHoverBoxVisible) fieldHoverBox = (
+        
+    // );
+
     return (
         <div className="w-full h-full absolute ">
             <svg width={'100%'} height={'100%'} viewBox="0 0 100 100" preserveAspectRatio="none" >
                 {polygons}
             </svg>
+            {/* {fieldHoverBox} */}
+            <FieldHoverBox
+                isHovered={isHoverBoxVisible}
+                hoveredField={hoveredField}
+                onMouseLeave={mouseLeaveHandler}
+            // documentViewerRef={documentViewerRef}
+            />
         </div>
     );
 }
