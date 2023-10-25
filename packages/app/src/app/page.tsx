@@ -3,9 +3,12 @@
 import FileDrop from "@/components/FileDrop";
 import { useState } from "react";
 import axios from "axios";
-import {NestedFormFieldsMap} from "@urla1003/types"
+import { NestedFormFieldsMap } from "@urla1003/types"
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from "next/navigation";
+import arrowUpRight from "@/assets/images/icons/arrow-up-right";
+import questionMarkCircle from "@/assets/images/icons/question-mark-circle";
+import githubLogo from "@/assets/images/icons/github-logo";
 
 
 const sampleFileUrl = "http://localhost:3001/urla-samples/urla_borrower_information.pdf";
@@ -38,7 +41,7 @@ export default function Home() {
       base64: base64String?.toString()
     };
 
-    if(base64String) localStorage.setItem(documentId, JSON.stringify(documentPayload));
+    if (base64String) localStorage.setItem(documentId, JSON.stringify(documentPayload));
     router.push(`/documents/${documentId}`);
 
     // const formData = new FormData();
@@ -51,13 +54,45 @@ export default function Home() {
 
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Hello world!</h1>
-      <FileDrop />
-      <button onClick={sampleFileHandler}>Use sample file</button>
-      <p>
-        {isLoading && "Loading..."}
-      </p>
+    <main className="">
+      <div>
+        <a href="">
+          <span>mortgage</span>
+          <span>flow</span>
+        </a>
+        <a href="">
+          {githubLogo}
+          <span>
+            Get source code
+          </span>
+        </a>
+      </div>
+      <div className="max-w-screen-sm mx-auto">
+        <div className="mb-8">
+          <h2 className="text-sm mb-4">OCR & AI FOR MORTGAGE DOCUMENTS</h2>
+          <h1 className="text-3xl font-bold mb-4">Extract data from the URLA (Form 1003)</h1>
+          <p className="text-blue-light mb-4">This tool was built to demonstrate the use of OCR & AI to extract structured data from mortgage documents. To learn how it works and get source code, please follow the link bellow.</p>
+          <a href="">
+            <span>Learn more</span>
+            {arrowUpRight}
+          </a>
+        </div>
+        <FileDrop />
+        <div>
+          <span>Don’t have filled 1003 handy?</span>
+          <div onClick={sampleFileHandler}>Use sample file →</div>
+        </div>
+        <button>
+          Extract data
+        </button>
+        <div>
+          {questionMarkCircle}
+          While this demo is designed for processing the 1003 form, the same technology can be used to extract data from any mortgage document. If you need guidance on implementing this, please don't hesitate to contact us.
+        </div>
+        <p>
+          {isLoading && "Loading..."}
+        </p>
+      </div>
     </main>
   )
 }

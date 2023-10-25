@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 const config: Config = {
   content: [
@@ -8,6 +9,17 @@ const config: Config = {
     './src/**/*.{js,ts,tsx,jsx}'
   ],
   theme: {
+    colors: {
+      blue: {
+        DEFAULT: '#000630',
+        dark: '#000630',
+        light: '#494D6B',
+      }
+    },
+    fontFamily: {
+      'sans': ['"Inter"', ...defaultTheme.fontFamily.sans],
+
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

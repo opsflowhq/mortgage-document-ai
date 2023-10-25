@@ -1,6 +1,7 @@
 'use client'
 
 import { ChangeEvent, DragEvent, SyntheticEvent, useRef, useState } from 'react';
+import cloudArrowUp from '@/assets/images/icons/cloud-arrow-up';
 
 const FileDrop = () => {
   const [isOver, setIsOver] = useState(false);
@@ -75,7 +76,9 @@ const FileDrop = () => {
           backgroundColor: isOver ? 'lightgray' : 'white',
         }}
       >
-        Drag and drop some files here
+        {cloudArrowUp}
+        <div>Drop your Form 1003 here or click to browse</div>
+        <div>Accepted file types: PDF, JPEG, PNG</div>
       </div>
 
       <input

@@ -22,10 +22,9 @@ function DocumentViewer({ }: DocumentViewerProps) {
     console.log('Document Viewer Render');
 
     return (
-        <div className="bg-gray-300 h-full w-full p-20 overflow-auto" >
-            <div className="relative" ref={documentViewerRef}>
+        <div className="bg-gray-300 h-full w-full  overflow-auto" >
+            <div className="relative w-fit p-20 m-auto" ref={documentViewerRef}>
                 {documentData && documentPages?.map((p, i) => {
-
                     const pageData = filterDocumentDataByPage(documentData, i);
 
                     return (

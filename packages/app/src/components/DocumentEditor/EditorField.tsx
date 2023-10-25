@@ -2,10 +2,14 @@ import { useEffect, useRef } from "react";
 import { Page } from "@urla1003/types";
 import clsx from "clsx";
 
+import CheckImg from '@/assets/images/icons/check';
+import ExclamationTriangleImg from '@/assets/images/icons/exclamation-triangle';
+
 
 interface EditorFieldProps {
     label: string;
     value?: string | null;
+    confidence?: number;
     isHovering: boolean;
     isEditing: boolean;
     onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -13,11 +17,11 @@ interface EditorFieldProps {
 }
 
 
-export default function DocumentField({ label, value, isHovering, isEditing, onMouseEnter, onMouseLeave }: EditorFieldProps) {
+export default function DocumentField({ label, value, isHovering, isEditing, onMouseEnter, onMouseLeave, confidence }: EditorFieldProps) {
 
     const elementRef = useRef<HTMLDivElement | null>(null);
 
-   
+
 
     const styleVariants = {
         plain: 'bg-white',
@@ -25,7 +29,7 @@ export default function DocumentField({ label, value, isHovering, isEditing, onM
         editing: 'shadow-xl relative border',
     };
 
-    let variant: keyof typeof styleVariants 
+    let variant: keyof typeof styleVariants
 
     variant = 'plain';
     if (isHovering) variant = 'hovered';
@@ -51,33 +55,36 @@ export default function DocumentField({ label, value, isHovering, isEditing, onM
         }
     }, [isHovering])
 
+
+    const confidenceBadge = {
+        icon: confidence && confidence < 95 ? ExclamationTriangleImg : CheckImg,
+        toolTipText: `${confidence}% confidence`
+    };
+   
+    // if () {
+    //     confidenceBadge.icon = ExclamationTriangleImg;
+    //     confidenceBadge.toolTipText = `Low confidence. `
+    // }
+
     return (
-        <div className="px-4">
-            {/* Read only state */}
-            <div
-                className={clsx("flex flex-row h-12", styleVariants[variant])}
-                ref={elementRef}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-            >
-                <div className="flex items-center justify-center pr-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                    </svg>
-                </div>
-                <div className="flex items-center">
-                    {label}
-                </div>
-                <div className="flex items-center grow justify-end">
-                    {value}
-                </div>
+
+        <div
+            className={clsx("flex flex-row h-12 px-4", styleVariants[variant])}
+            ref={elementRef}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+        >
+            <div className="flex items-center justify-center pr-1 has-tooltip relative">
+                {confidenceBadge.icon}
+                <span className="tooltip bg-black/70 left-0 p-1 -top-5 text-white w-max rounded">{confidenceBadge.toolTipText}</span>
             </div>
-            <div>
-                <div>
-                    {/* Input component https://tailwindui.com/components/application-ui/forms/input-groups */}
-                    {/* Basicly turn it into the label and input, and that's it */}
-                </div>
+            <div className="flex items-center">
+                {label}
+            </div>
+            <div className="flex items-center grow justify-end">
+                {value}
             </div>
         </div>
+
     );
 }

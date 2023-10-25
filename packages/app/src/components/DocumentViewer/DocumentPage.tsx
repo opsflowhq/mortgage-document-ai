@@ -21,7 +21,7 @@ function DocumentPage({ page, pageData }: DocumentPageProps) {
 
     // console.log('Page rerender', page.pageNumber);
     return (
-        <div className="w-full mb-6 shadow-xl relative">
+        <div className="mb-6 shadow-xl relative">
             <BoundingBoxCanvas 
                 pageNumber={page.pageNumber}
                 pageData={pageData}
@@ -32,8 +32,9 @@ function DocumentPage({ page, pageData }: DocumentPageProps) {
                 src={imageDataURL} 
                 width={0}
                 height={0}
+                style={{maxWidth: page.image.width, minWidth: 700}}
                 alt="DocumentPage" 
-                className="w-full h-auto" 
+                className="h-auto max-w-none w-full" 
             />
         </div>
     );
