@@ -1,7 +1,7 @@
 'use client'
 
 import { ChangeEvent, DragEvent, SyntheticEvent, useRef, useState } from 'react';
-import cloudArrowUp from '@/assets/images/icons/cloud-arrow-up';
+import CloudArrowUp from '@/assets/images/icons/cloud-arrow-up';
 
 const FileDrop = () => {
   const [isOver, setIsOver] = useState(false);
@@ -66,24 +66,27 @@ const FileDrop = () => {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={handleClick}
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '50px',
-          width: '300px',
-          border: '1px dotted',
-          backgroundColor: isOver ? 'lightgray' : 'white',
-        }}
+        className="bg-background px-4 py-10 rounded-md flex flex-col items-center cursor-pointer"
+      // style={{
+      //   display: 'flex',
+      //   justifyContent: 'center',
+      //   alignItems: 'center',
+      //   height: '50px',
+      //   width: '300px',
+      //   border: '1px dotted',
+      //   backgroundColor: isOver ? 'lightgray' : 'white',
+      // }}
       >
-        {cloudArrowUp}
-        <div>Drop your Form 1003 here or click to browse</div>
-        <div>Accepted file types: PDF, JPEG, PNG</div>
+        <div className='w-12 h-12 p-3 bg-background-dark rounded-full mb-4'>
+          <CloudArrowUp className='h-auto' />
+        </div>
+        <div className='text-sm'>Drop your Form 1003 here or click to upload</div>
+        <div className='text-xs text-primary-light'>Accepted file types: PDF, JPEG, PNG</div>
       </div>
 
       <input
         ref={inputRef}
-        style={{display: 'none'}}
+        style={{ display: 'none' }}
         type="file"
         onChange={handleFileChange}
       />
