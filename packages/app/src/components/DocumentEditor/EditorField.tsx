@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { Page } from "@urla1003/types";
 import clsx from "clsx";
 
-import CheckImg from '@/assets/images/icons/check';
-import ExclamationTriangleImg from '@/assets/images/icons/exclamation-triangle';
+import Check from '@/assets/images/icons/check';
+import ExclamationTriangle from '@/assets/images/icons/exclamation-triangle';
 
 
 interface EditorFieldProps {
@@ -57,7 +57,7 @@ export default function DocumentField({ label, value, isHovering, isEditing, onM
 
 
     const confidenceBadge = {
-        icon: confidence && confidence < 95 ? ExclamationTriangleImg : CheckImg,
+        icon: confidence && confidence < 95 ? <ExclamationTriangle className="w-4 h-4 stroke-warning stroke-2"/> : <Check className="w-4 h-4 stroke-success stroke-2" />,
         toolTipText: `${confidence}% confidence`
     };
    
@@ -78,10 +78,10 @@ export default function DocumentField({ label, value, isHovering, isEditing, onM
                 {confidenceBadge.icon}
                 <span className="tooltip bg-black/70 left-0 p-1 -top-5 text-white w-max rounded">{confidenceBadge.toolTipText}</span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center font-medium">
                 {label}
             </div>
-            <div className="flex items-center grow justify-end">
+            <div className="flex items-center grow justify-end text-primary-light">
                 {value}
             </div>
         </div>

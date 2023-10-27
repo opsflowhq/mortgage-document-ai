@@ -11,6 +11,7 @@ import questionMarkCircle from "@/assets/images/icons/question-mark-circle";
 import githubLogo from "@/assets/images/icons/github-logo";
 import Button from "@/components/UI/Button";
 import ArrowSmallRight from "@/assets/images/icons/arrow-small-right";
+import ExclamationCircle from "@/assets/images/icons/exclamation-circle";
 
 
 const sampleFileUrl = "http://localhost:3001/urla-samples/urla_borrower_information.pdf";
@@ -28,7 +29,7 @@ export default function Home() {
 
   const sampleFileHandler = async () => {
     const { data } = await axios.get<Blob>(sampleFileUrl, { responseType: 'blob' });
-    processFileHandler(new File([data], 'sample_urla.pdf', { type: 'application/pdf' }));
+    processFileHandler(new File([data], 'sample_form_1003.pdf', { type: 'application/pdf' }));
   };
 
   const processFileHandler = async (file: File) => {
@@ -56,61 +57,61 @@ export default function Home() {
 
 
   return (
-    <main className="">
-      <div>
-        <a href="">
-          <span>mortgage</span>
+    <>
+      <header className="p-4 border-b sticky top-0 bg-white flex justify-between">
+        <a href="https://www.mortgageflow.io" target="_blank" className="text-xl">
+          <span className="font-bold">mortgage</span>
           <span>flow</span>
         </a>
-        <a href="">
+        <a href="" className="font-medium flex gap-2 items-center text-sm">
           {githubLogo}
           <span>
             Get source code
           </span>
         </a>
-      </div>
-      <div className="max-w-screen-sm mx-auto">
-        <div className="mb-12">
-          <h2 className="text-sm mb-4">OCR & AI FOR MORTGAGE DOCUMENTS</h2>
-          <h1 className="text-3xl font-bold mb-4">Extract data from the URLA (Form 1003)</h1>
-          <p className="text-sm text-primary-light mb-4">This tool was built to demonstrate the use of OCR & AI to extract structured data from mortgage documents. To learn how it works and get source code, please follow the link bellow.</p>
-          {/* <a href="">
+      </header>
+      <main className="max-w-screen-sm mx-auto my-20">
+        {/* <div className=""> */}
+          <div className="mb-12">
+            <h2 className="text-sm mb-4">OCR & AI FOR MORTGAGE DOCUMENTS</h2>
+            <h1 className="text-3xl font-bold mb-4">Extract data from the URLA (Form 1003)</h1>
+            <p className="text-sm text-primary-light mb-4">This tool was built to demonstrate the use of OCR & AI to extract structured data from mortgage documents. To learn how it works and get source code, please follow the link bellow.</p>
+            {/* <a href="">
             <div className="gap-2 items-center border-b inline-flex text-secondary hover:text-secondary-light">
               <span>Learn more</span>
               <ArrowUpRight className="h-4 w-4" />
             </div>
           </a> */}
-          <Button href="/" icon={ArrowUpRight}>Learn more</Button>
-        </div>
-
-        <div className="mb-12">
-          <FileDrop />
-          <div className="flex justify-between items-center p-4 my-4 bg-background rounded-md">
-            <span className="text-sm">Don&apos;t have filled 1003 handy?</span>
-            <Button icon={ArrowSmallRight} onClick={sampleFileHandler}>Use sample file</Button>
-            {/* <div onClick={sampleFileHandler}>Use sample file →</div> */}
+            <Button style="underline" href="/" icon={ArrowUpRight}>Learn more</Button>
           </div>
 
-          <button
-            type="submit"
-            className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            Extract data
-          </button>
-        </div>
+          <div className="pb-12  border-background-dark border-b">
+            <FileDrop />
+            <div className="flex justify-between items-center p-4 my-4 bg-background rounded-md">
+              <span className="text-sm">Don&apos;t have filled 1003 handy?</span>
+              <Button style="underline" icon={ArrowSmallRight} onClick={sampleFileHandler}>Use sample file</Button>
+              {/* <div onClick={sampleFileHandler}>Use sample file →</div> */}
+            </div>
+
+            <Button style="primary">Extract data</Button>
+          </div>
 
 
-        
 
-        <div className="text-sm text-primary-light p-4 bg-background rounded">
-          {questionMarkCircle}
-          <span>
-            While this demo is designed for processing the 1003 form, the same technology can be used to extract data from any mortgage document. If you need guidance on implementing this, please don't hesitate to contact us.
-          </span>
-        </div>
-        <p>
-          {isLoading && "Loading..."}
-        </p>
-      </div>
-    </main>
+
+          <div className="text-sm text-primary-light p-4 bg-background rounded flex gap-4 mt-12">
+            <div className="w-6">
+              <ExclamationCircle className="w-6 h-6"/>
+            </div>
+            <span>
+              While this demo is designed for processing the 1003 form, the same technology can be used to extract data from any mortgage document. If you need guidance on implementing this, please don't hesitate to contact us.
+            </span>
+          </div>
+          <p>
+            {isLoading && "Loading..."}
+          </p>
+        {/* </div> */}
+      </main>
+    </>
   )
 }

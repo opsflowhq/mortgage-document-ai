@@ -24,8 +24,8 @@ app.use(cors())
 app.post("/document/process", upload.single('document'), async (req, res) => {
 
  
-  // const uploadedFile = req.file;
-  // if (!uploadedFile) throw new Error('File upload error');
+  const uploadedFile = req.file;
+  if (!uploadedFile) throw new Error('File upload error');
 
   // const encodedPdfFile = Buffer.from(uploadedFile.buffer).toString('base64');
 
@@ -114,10 +114,16 @@ app.post("/document/process", upload.single('document'), async (req, res) => {
       image: p.image as Page['image'], //TODO: refactor to check page.image on undefined
     }
   });
+
+  console.log(uploadedFile);
   
   const resultDocument: ProcessedDocument = {
     pages: cleanedPages,
     data: newMappedEntity,
+    meta: {
+      type: 'Form 1003',
+      sourceFileName: uploadedFile.originalname
+    }
   };
 
   res.json(resultDocument);

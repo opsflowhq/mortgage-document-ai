@@ -39,6 +39,7 @@ export default function DocumentPage({ params }: { params: { documentId: string 
     const documentModel = Form1003.documentModel;
     const documentData = processedDocument?.data;
     const documentPages = processedDocument?.pages;
+    const documentMeta = processedDocument?.meta;
 
     useEffect(() => {
         const documentJson = localStorage.getItem(documentId);
@@ -55,6 +56,7 @@ export default function DocumentPage({ params }: { params: { documentId: string 
                 documentData={documentData}
                 documentModel={documentModel}
                 documentPages={documentPages}
+                documentMeta={documentMeta}
 
             >
                 <DocumentEditor

@@ -28,6 +28,7 @@
     "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "tailwindcss-dotted-background": "^1.1.0",
     "typescript": "5.2.2"
   }
 }

@@ -20,8 +20,8 @@ export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, la
 
     return (
         <div className="bg-white border-b pt-4">
-            <div className="flex items-center h-12 px-4">
-                <h3 className="font-bold">{label}</h3>
+            <div className="flex items-center px-4">
+                <h3 className="font-bold text-base">{label}</h3>
             </div>
             <div>
                 {Object.keys(fieldsModel).map(fieldKey => {

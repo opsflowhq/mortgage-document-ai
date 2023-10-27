@@ -3833,6 +3833,11 @@ swr@^2.2.4:
     client-only "^0.0.1"
     use-sync-external-store "^1.2.0"
 
+tailwindcss-dotted-background@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/tailwindcss-dotted-background/-/tailwindcss-dotted-background-1.1.0.tgz#0fb009d8b84ab56a438942b05affe698dae29f3b"
+  integrity sha512-uFzCW5Bpyn8XgppTkyzqdHecH7XCDaS/eXvegDrOCYE6PxTm7dRrD9cuUcZe6mxQFVfkLu9rDmHJdqbjz9FdLA==
+
 tailwindcss@^3.3.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.3.3.tgz#90da807393a2859189e48e9e7000e6880a736daf"

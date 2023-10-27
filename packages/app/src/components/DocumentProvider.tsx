@@ -1,4 +1,4 @@
-import { DocumentData, Form1003, Page } from '@urla1003/types';
+import { DocumentData, DocumentMeta, Form1003, Page } from '@urla1003/types';
 import React, { createContext, useContext, useState } from 'react';
 import { FieldHoverEvent } from './DocumentViewer/BoundingBoxCanvas';
 
@@ -13,6 +13,7 @@ interface DocumentContextDefaultData {
     documentModel: Form1003.DocumentModel;
     documentData?: DocumentData;
     documentPages?: Page[];
+    documentMeta?: DocumentMeta;
 }
 
 interface DocumentContextData extends DocumentContextDefaultData {

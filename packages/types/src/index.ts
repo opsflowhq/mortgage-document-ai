@@ -44,9 +44,15 @@ export interface Page {
   },
 }
 
+export interface DocumentMeta {
+  type: string;
+  sourceFileName: string;
+}
+
 export interface ProcessedDocument {
   pages: Page[],
   data: DocumentData,
+  meta: DocumentMeta,
 }
 
 export namespace Form1003 {

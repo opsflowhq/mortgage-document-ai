@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
+import tailwindcssDottedBackground from 'tailwindcss-dotted-background';
 
 const config: Config = {
   content: [
@@ -9,26 +10,36 @@ const config: Config = {
     "./src/**/*.{js,ts,tsx,jsx}",
   ],
   theme: {
-    colors: {
-      white: "white",
-      primary: {
-        DEFAULT: "#000630",
-        // dark: '#000630',
-        light: "#8F8F8F",
-      },
-      secondary: {
-        DEFAULT: "#2844DE",
-        light: "#5369E5",
-      },
-      background: {
-        DEFAULT: "#F9F9F9",
-        dark: "#EFEFEF"
-      }
-    },
+    
     fontFamily: {
       "sans": ['"Inter"', ...defaultTheme.fontFamily.sans],
     },
     extend: {
+      colors: {
+        white: "white",
+        primary: {
+          DEFAULT: "#000630",
+          // dark: '#000630',
+          light: "#8F8F8F",
+        },
+        secondary: {
+          DEFAULT: "#2844DE",
+          light: "#5369E5",
+        },
+        background: {
+          DEFAULT: "#F9F9F9",
+          dark: "#EFEFEF"
+        },
+        success: {
+          DEFAULT: "#17CC35"
+        },
+        warning: {
+          DEFAULT: "#FF9900",
+        }
+      },
+      boxShadow: {
+        "reverse-lg": "-10px 10px 15px -3px rgb(0 0 0 / 0.1), -4px 4px 6px -4px rgb(0 0 0 / 0.1)",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -36,6 +47,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindcssDottedBackground],
 };
 export default config;
