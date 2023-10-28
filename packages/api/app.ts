@@ -27,18 +27,21 @@ app.post("/document/process", upload.single('document'), async (req, res) => {
   const uploadedFile = req.file;
   if (!uploadedFile) throw new Error('File upload error');
 
-  // const encodedPdfFile = Buffer.from(uploadedFile.buffer).toString('base64');
+  // const encodedPdfFile = uploadedFile.buffer.toString('base64');
 
+  // console.log({uploadedFile})
 
   // const [result] = await documentAiClient.processDocument({
   //   name: processorName,
   //   rawDocument: {
-  //     content: encodedPdfFile,
-  //     mimeType: 'application/pdf',
+  //     content: uploadedFile.buffer.toString('base64'),
+  //     mimeType: uploadedFile.mimetype,
   //   },
   // });
 
   // let { document } = result;
+
+  // if(!document) throw new Error("Document parsing failed");
 
   const documentJson = await fs.readFile('../../static/parsed.json', 'utf-8');
   const document = JSON.parse(documentJson) as google.cloud.documentai.v1.IDocument;

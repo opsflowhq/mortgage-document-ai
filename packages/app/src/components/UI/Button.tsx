@@ -13,6 +13,7 @@ interface ButtonProps {
     onClick?: () => void;
     style: keyof typeof buttonStyleVariants;
     stretch?: boolean;
+    disabled?: boolean;
 }
 
 const buttonStyleVariants = {
@@ -20,23 +21,25 @@ const buttonStyleVariants = {
     primary: 'rounded-md bg-primary px-3 py-1.5 font-semibold leading-6 text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary',
 };
 
-export default function Button({ href,target, children, icon, onClick, style, stretch }: ButtonProps) {
+export default function Button({ href, target, children, icon, onClick, style, stretch, disabled }: ButtonProps) {
     const IconComponent = icon;
     let image;
 
     if (IconComponent && typeof IconComponent != 'string') image = <IconComponent className="h-4 w-4" />
 
 
-  
+
 
     let buttonElement = (
-        <button 
+        <button
             className={clsx(
-                "text-sm gap-2 items-center cursor-pointer flex", 
+                "text-sm gap-2 items-center cursor-pointer flex",
                 buttonStyleVariants[style],
                 stretch && "w-full justify-center",
+                disabled && "pointer-events-none"
             )}
             onClick={onClick}
+            disabled={disabled}
         >
             <span>{children}</span>
             {image && image}
@@ -44,9 +47,22 @@ export default function Button({ href,target, children, icon, onClick, style, st
         </button>
     );
 
-    if (href) buttonElement = (<Link href={href} target={target}>{buttonElement}</Link>)
+    if (href) buttonElement = (
+        <Link
+            href={href}
+            target={target}
+            className={clsx(
+                "inline-block",
+                disabled && "pointer-events-none "
+            )}
+        >
+            {buttonElement}
+        </Link>
+    );
 
     return (
-        buttonElement
+        <div className={clsx("inline-block", disabled && "cursor-not-allowed opacity-70")}>
+            {buttonElement}
+        </div>
     );
 };

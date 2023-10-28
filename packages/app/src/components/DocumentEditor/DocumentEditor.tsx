@@ -9,7 +9,9 @@ import ArrowLeft from "@/assets/images/icons/arrow-left";
 import Link from "next/link";
 import SkeletonLoader from "../UI/SkeletonLoader";
 import Lottie from "lottie-react";
-import circleLoaderAnimation from '@/assets/animations/circle-loader2.json';
+import circleLoaderAnimation from '@/assets/animations/circle-loader3.json';
+import CircleLoader from "../UI/CircleLoader/CircleLoader";
+import LoadingIndicator from "./LoadingIndicator";
 
 
 
@@ -25,7 +27,7 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
     // console.log('Data schema ->', documentModel);
     // console.log('Data ->', documentData);
 
-    const { documentModel, documentData, documentMeta, isLoading } = useDocumentContext();
+    const { documentModel, documentData, documentMeta, isLoading, isDocumentProcessing } = useDocumentContext();
 
     const [fileName, fileExtension] = documentMeta ? documentMeta?.sourceFileName.split('.') : [];
 
@@ -54,27 +56,8 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
                     </div>
 
                 </div>
-
             </div>
-            <div className="p-4 border-b flex gap-4 items-center">
-                <div className="w-10">
-                    <Lottie 
-                        animationData={circleLoaderAnimation}
-                        loop
-                    />
-                
-                
-                  
-                </div>
-                <div>
-                    <div className="font-bold">
-                        Processing document...
-                    </div>
-                    <div className="text-xs">
-                        Document processing might take up to 40 seconds.
-                    </div>
-                </div>
-            </div>
+            {isDocumentProcessing && <LoadingIndicator /> }
             <div className="grow overflow-scroll relative">
                 {
                     Object.keys(documentModel).map(entityKey => {
@@ -100,6 +83,7 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
                     target="_blank"
                     style="primary"
                     icon={ArrowUpRight}
+                    disabled={isLoading}
                 >
                     View JSON data
                 </Button>

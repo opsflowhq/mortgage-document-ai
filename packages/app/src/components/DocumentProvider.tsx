@@ -10,6 +10,7 @@ interface DocumentProviderProps extends DocumentContextDefaultData {
 
 interface DocumentContextDefaultData {
     isLoading: boolean;
+    isDocumentProcessing: boolean;
     documentModel: Form1003.DocumentModel;
     documentData?: DocumentData;
     documentPages?: Page[];
