@@ -4,6 +4,7 @@ import clsx from "clsx";
 
 import Check from '@/assets/images/icons/check';
 import ExclamationTriangle from '@/assets/images/icons/exclamation-triangle';
+import SkeletonLoader from "@/components/UI/SkeletonLoader";
 
 
 interface EditorFieldProps {
@@ -12,12 +13,13 @@ interface EditorFieldProps {
     confidence?: number;
     isHovering: boolean;
     isEditing: boolean;
+    isLoading?: boolean;
     onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
     onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 
-export default function DocumentField({ label, value, isHovering, isEditing, onMouseEnter, onMouseLeave, confidence }: EditorFieldProps) {
+export default function DocumentField({ label, value, isHovering, isEditing, isLoading, onMouseEnter, onMouseLeave, confidence }: EditorFieldProps) {
 
     const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -25,7 +27,7 @@ export default function DocumentField({ label, value, isHovering, isEditing, onM
 
     const styleVariants = {
         plain: 'bg-white',
-        hovered: 'bg-purple-200',
+        hovered: 'bg-background-secondary',
         editing: 'shadow-xl relative border',
     };
 
@@ -57,10 +59,10 @@ export default function DocumentField({ label, value, isHovering, isEditing, onM
 
 
     const confidenceBadge = {
-        icon: confidence && confidence < 95 ? <ExclamationTriangle className="w-4 h-4 stroke-warning stroke-2"/> : <Check className="w-4 h-4 stroke-success stroke-2" />,
+        icon: confidence && confidence < 95 ? <ExclamationTriangle className="w-4 h-4 stroke-warning stroke-2" /> : <Check className="w-4 h-4 stroke-success stroke-2" />,
         toolTipText: `${confidence}% confidence`
     };
-   
+
     // if () {
     //     confidenceBadge.icon = ExclamationTriangleImg;
     //     confidenceBadge.toolTipText = `Low confidence. `
@@ -82,7 +84,13 @@ export default function DocumentField({ label, value, isHovering, isEditing, onM
                 {label}
             </div>
             <div className="flex items-center grow justify-end text-primary-light">
-                {value}
+                <SkeletonLoader
+                    height={14}
+                    width={`${Math.floor(Math.random() * 31) + 30}%`}
+                    isLoading={isLoading}
+                >
+                    {value}
+                </SkeletonLoader>
             </div>
         </div>
 

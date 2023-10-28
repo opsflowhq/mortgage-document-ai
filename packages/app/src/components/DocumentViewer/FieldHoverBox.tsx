@@ -65,16 +65,16 @@ export default function FieldHoverBox({ onMouseLeave, hoveredField, isHovered }:
 
         if (hoveredField && documentData) fieldHoverBox = (
             <div
-                className="absolute bg-white shadow-md p-4 border-blue-500 border field-hover-box"
+                className="absolute bg-white shadow-md p-4 border-secondary border rounded field-hover-box"
                 style={{ top: offsetY, left: offsetX }}
                 onMouseLeave={onMouseLeave}
                 data-field-id={`${hoveredField.entityKey}.${hoveredField.fieldKey}`}
                 ref={elementRef}
             >
-                <div className="font-bold text-sm">
+                <div className="font-semibold text-sm mb-1">
                     {documentModel[hoveredField.entityKey].fields[hoveredField.fieldKey].label}
                 </div>
-                <div>
+                <div className="text-sm">
                     {documentData[hoveredField.entityKey][hoveredField.fieldKey].value}
                 </div>
             </div>

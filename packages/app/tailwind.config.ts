@@ -28,7 +28,8 @@ const config: Config = {
         },
         background: {
           DEFAULT: "#F9F9F9",
-          dark: "#EFEFEF"
+          dark: "#EFEFEF",
+          secondary: "#E9ECFC",
         },
         success: {
           DEFAULT: "#17CC35"

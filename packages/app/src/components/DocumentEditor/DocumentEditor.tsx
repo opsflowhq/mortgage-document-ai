@@ -7,6 +7,10 @@ import Button from "../UI/Button";
 import ArrowUpRight from "@/assets/images/icons/arrow-up-right";
 import ArrowLeft from "@/assets/images/icons/arrow-left";
 import Link from "next/link";
+import SkeletonLoader from "../UI/SkeletonLoader";
+import Lottie from "lottie-react";
+import circleLoaderAnimation from '@/assets/animations/circle-loader2.json';
+
 
 
 interface DocumentEditorProps {
@@ -21,7 +25,7 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
     // console.log('Data schema ->', documentModel);
     // console.log('Data ->', documentData);
 
-    const { documentModel, documentData, documentMeta } = useDocumentContext();
+    const { documentModel, documentData, documentMeta, isLoading } = useDocumentContext();
 
     const [fileName, fileExtension] = documentMeta ? documentMeta?.sourceFileName.split('.') : [];
 
@@ -29,16 +33,46 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
         <div className="h-screen shadow-2xl flex flex-col relative text-sm z-10">
             <div className="border-b p-4 flex gap-4 items-center">
                 <Link href={"/"}>
-                    <ArrowLeft className="w-5 h-5 stroke-2 cursor-pointer hover:stroke-secondary"/>
+                    <ArrowLeft className="w-5 h-5 stroke-2 cursor-pointer hover:stroke-secondary" />
                 </Link>
-                <div className="text-lg font-semibold whitespace-nowrap inline-flex w-auto items-start overflow-auto">
-                    <span className="">
-                        Form 1003 (
-                    </span>
-                    <span className="text-ellipsis overflow-hidden grow">{fileName}</span>
-                    <span>
-                    .{fileExtension})
-                    </span>
+                <div>
+                    <div className="text-lg font-semibold whitespace-nowrap inline-flex w-auto items-center overflow-auto">
+                        <span className="">
+                            Form 1003 (
+                        </span>
+                        <SkeletonLoader
+                            isLoading={isLoading}
+                            height={18}
+                            width={'100%'}
+                        >
+                            <span className="text-ellipsis overflow-hidden grow">{fileName}</span>
+                            <span>
+                                .{fileExtension}
+                            </span>
+                        </SkeletonLoader>
+                        <span>)</span>
+                    </div>
+
+                </div>
+
+            </div>
+            <div className="p-4 border-b flex gap-4 items-center">
+                <div className="w-10">
+                    <Lottie 
+                        animationData={circleLoaderAnimation}
+                        loop
+                    />
+                
+                
+                  
+                </div>
+                <div>
+                    <div className="font-bold">
+                        Processing document...
+                    </div>
+                    <div className="text-xs">
+                        Document processing might take up to 40 seconds.
+                    </div>
                 </div>
             </div>
             <div className="grow overflow-scroll relative">
@@ -66,7 +100,7 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
                     target="_blank"
                     style="primary"
                     icon={ArrowUpRight}
-                    >
+                >
                     View JSON data
                 </Button>
             </div>

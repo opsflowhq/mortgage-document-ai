@@ -4,6 +4,7 @@ import { FC, RefObject, memo, useRef } from "react";
 import { FieldHoverEvent, FieldHoverEventHandler } from "./BoundingBoxCanvas";
 import { useDocumentContext } from "../DocumentProvider";
 import FieldHoverBox from "./FieldHoverBox";
+import DocumentPageSkeleton from "./DocumentPageSkeleton";
 
 
 interface DocumentViewerProps {
@@ -16,14 +17,17 @@ interface DocumentViewerProps {
 
 function DocumentViewer({ }: DocumentViewerProps) {
 
-    const { documentData, documentPages } = useDocumentContext();
+    const { documentData, documentPages, isLoading } = useDocumentContext();
     const documentViewerRef: RefObject<HTMLDivElement> = useRef(null);
 
     console.log('Document Viewer Render');
 
+    // console.log('Skeleton -> ', DocumentPage.type.Skeleton);
+
     return (
         <div className="bg-background-dark bg-dotted-spacing-4 bg-dotted-gray-400 h-full w-full  overflow-auto" >
             <div className="relative w-fit p-20 m-auto" ref={documentViewerRef}>
+                {isLoading && <DocumentPageSkeleton />}
                 {documentData && documentPages?.map((p, i) => {
                     const pageData = filterDocumentDataByPage(documentData, i);
 
@@ -37,6 +41,7 @@ function DocumentViewer({ }: DocumentViewerProps) {
                         />
                     );
                 })}
+
                 
             </div>
         </div>

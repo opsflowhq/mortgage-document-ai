@@ -21,7 +21,7 @@ interface DocumentContextData extends DocumentContextDefaultData {
     setHoveredField: React.Dispatch<React.SetStateAction<null | FieldHoverEvent>>;
 }
 
-const DocumentContext = createContext<DocumentContextData>({} as DocumentContextData);
+const DocumentContext = createContext<DocumentContextData>({isLoading: true} as DocumentContextData);
 
 export function DocumentProvider({ children, ...defaultContextData }: DocumentProviderProps) {
 

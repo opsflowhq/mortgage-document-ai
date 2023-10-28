@@ -34,7 +34,7 @@ export default function DocumentPage({ params }: { params: { documentId: string 
     const [rawDocument, setRawDocument] = useState<null | Document>(null);
     // const [hoveredField, setHoveredField] = useState<null | FieldHoverEvent>(null);
 
-    const { data: processedDocument, error, isLoading } = useSWR(rawDocument, processDocument);
+    const { data: processedDocument, error, isLoading } = useSWR(rawDocument, processDocument, {});
 
     const documentModel = Form1003.documentModel;
     const documentData = processedDocument?.data;
@@ -52,7 +52,7 @@ export default function DocumentPage({ params }: { params: { documentId: string 
     return (
         <div className="grid grid-cols-[450px,1fr] h-screen">
             <DocumentProvider
-                isLoading={isLoading}
+                isLoading={!processedDocument && !error}
                 documentData={documentData}
                 documentModel={documentModel}
                 documentPages={documentPages}

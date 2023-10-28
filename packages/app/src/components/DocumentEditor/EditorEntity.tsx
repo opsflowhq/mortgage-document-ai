@@ -1,5 +1,5 @@
 import { DocumentEntityData, DocumentFieldValue, Form1003 } from "@urla1003/types";
-import DocumentField from "./EditorField";
+import EditorField from "./EditorField";
 import { FieldHoverEvent } from "../DocumentViewer/BoundingBoxCanvas";
 import { useDocumentContext } from "../DocumentProvider";
 
@@ -16,7 +16,7 @@ interface EditorEntityProps {
 export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, label }: EditorEntityProps) {
 
 
-    const {hoveredField, setHoveredField} = useDocumentContext();
+    const {hoveredField, setHoveredField, isLoading} = useDocumentContext();
 
     return (
         <div className="bg-white border-b pt-4">
@@ -30,12 +30,13 @@ export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, la
                     const isHovered = fieldKey === hoveredField?.fieldKey && entityKey === hoveredField.entityKey;
 
                     return (
-                        <DocumentField
+                        <EditorField
                             key={`${entityKey}.${fieldKey}`}
                             label={fieldModel.label}
                             value={fieldValue?.value}
                             confidence={fieldValue?.confidence}
                             isHovering={isHovered}
+                            isLoading={isLoading}
                             isEditing={false} //for future iteration
                             onMouseEnter={() => {
                                 setHoveredField({
