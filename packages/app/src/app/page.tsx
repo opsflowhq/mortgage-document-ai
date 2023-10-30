@@ -111,7 +111,7 @@ export default function Home() {
                         <ExclamationCircle className="w-6 h-6" />
                     </div>
                     <span>
-                        While this demo is designed for processing the 1003 form, the same technology can be used to extract data from any mortgage document. If you need guidance on implementing this, please don't hesitate to <Link href={'https://www.mortgageflow.io/book-a-demo'} target="_blank" className="font-semibold">contact us</Link>.
+                        While this demo is designed for processing the 1003 form, the same technology can be used to extract data from any mortgage document. If you need guidance on implementing this, please don&apos;t hesitate to <Link href={'https://www.mortgageflow.io/book-a-demo'} target="_blank" className="font-semibold">contact us</Link>.
                     </span>
                 </div>
                 {/* </div> */}

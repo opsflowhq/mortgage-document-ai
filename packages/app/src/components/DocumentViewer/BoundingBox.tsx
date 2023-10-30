@@ -10,13 +10,11 @@ interface BoundingBoxProps {
     onClick?: () => void;
     onMouseEnter?: (e: React.MouseEvent<SVGPolygonElement>) => void;
     onMouseLeave?: (e: React.MouseEvent<SVGPolygonElement>) => void;
-    // entityKey: string;
-    // fieldKey: string;
 }
 
 export default function BoundingBox({ field, onClick, onMouseEnter, onMouseLeave, id }: BoundingBoxProps) {
 
-        
+    if (!field.pageAnchor) return null;
     const pointsString = field.pageAnchor[0].boundingPoly.map(p => `${p.x * 100},${p.y * 100}`).join(' ');
 
     return (

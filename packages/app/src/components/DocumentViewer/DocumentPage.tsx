@@ -14,7 +14,8 @@ interface DocumentPageProps {
 
 function DocumentPage({ page, pageData }: DocumentPageProps) {
     //Need to check actuall response type from the GDOCAI
-    const buffer = page.image.content.data;
+    // const buffer = page.image.content.data;
+    const buffer = page.image.content;
     const base64Data = Buffer.from(buffer).toString('base64');
     const imageDataURL = `data:${page.image.mimeType};base64,${base64Data}`;
 
