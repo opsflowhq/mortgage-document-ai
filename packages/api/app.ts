@@ -27,8 +27,6 @@ app.post("/document/process", upload.single('document'), async (req, res) => {
   const uploadedFile = req.file;
   if (!uploadedFile) throw new Error('File upload error');
 
-  // const encodedPdfFile = uploadedFile.buffer.toString('base64');
-
   // console.log({uploadedFile})
 
   // const [result] = await documentAiClient.processDocument({

@@ -13,6 +13,8 @@ import ArrowSmallRight from "@/assets/images/icons/arrow-small-right";
 import ExclamationCircle from "@/assets/images/icons/exclamation-circle";
 import Link from "next/link";
 import { get, set } from 'idb-keyval';
+import config from "@/utils/config";
+import { setLocalFile } from "@/utils";
 
 
 const sampleFileUrl = "http://localhost:3001/urla-samples/urla_borrower_information.pdf";
@@ -29,35 +31,23 @@ export default function Home() {
     const [isLoading, setLoading] = useState<boolean>(false);
     const router = useRouter();
 
-    const sampleFileHandler = async () => {
-        const { data } = await axios.get<Blob>(sampleFileUrl, { responseType: 'blob' });
-        processFileHandler(new File([data], 'sample_form_1003.pdf', { type: 'application/pdf' }));
-    };
-
-    const processFileHandler = async (file: File) => {
-        setLoading(true);
-        // const blob = await toBase64(file);
-        // const documentId = uuidv4();
-        const documentId = "b8c646e9-90ed-4dd9-9af3-d99c2338c7ce";
-
-        //Rewrite to the IndexDB
-        const documentPayload = {
-            source: file
-        };
-
-        await set(documentId, documentPayload);
-        router.push(`/documents/${documentId}`);
-
-        // const formData = new FormData();
-        // formData.append('document', file);
-
-
-        // const { data } = await axios.post<NestedFormFieldsMap>('http://localhost:3001/document/process', formData);
-        setLoading(false);
+    const processFile = async (file: File) => {
+        await setLocalFile(config.fileStorageKey, {source: file, processedDocument: null});
+        router.push(`/documents/${config.fileStorageKey}`);
     }
 
+    const sampleFileHandler = async () => {
+        setLoading(true);
+        const { data } = await axios.get<Blob>(sampleFileUrl, { responseType: 'blob' });
+        await processFile(new File([data], 'sample_form_1003.pdf', { type: 'application/pdf' }));
+        setLoading(false);
+    };
+
+
     const extractDataHandler = async () => {
-        processFileHandler(files[0])
+        setLoading(true);
+        await processFile(files[0])
+        setLoading(false);
     }
 
 
@@ -98,7 +88,7 @@ export default function Home() {
                         !files.length && (
                             <div className="flex justify-between items-center p-4 mb-4 bg-background rounded-md">
                                 <span className="text-sm">Don&apos;t have filled 1003 handy?</span>
-                                <Button style="underline" icon={ArrowSmallRight} onClick={sampleFileHandler}>Use sample file</Button>
+                                <Button style="underline" icon={ArrowSmallRight} onClick={sampleFileHandler} disabled={isLoading}>Use sample file</Button>
                                 {/* <div onClick={sampleFileHandler}>Use sample file →</div> */}
                             </div>)
                     }
@@ -106,6 +96,7 @@ export default function Home() {
                     <Button
                         onClick={extractDataHandler}
                         disabled={!files.length}
+                        isLoading={isLoading}
                         style="primary"
                     >
                         Extract data
@@ -123,9 +114,6 @@ export default function Home() {
                         While this demo is designed for processing the 1003 form, the same technology can be used to extract data from any mortgage document. If you need guidance on implementing this, please don't hesitate to <Link href={'https://www.mortgageflow.io/book-a-demo'} target="_blank" className="font-semibold">contact us</Link>.
                     </span>
                 </div>
-                <p>
-                    {isLoading && "Loading..."}
-                </p>
                 {/* </div> */}
             </main>
         </>

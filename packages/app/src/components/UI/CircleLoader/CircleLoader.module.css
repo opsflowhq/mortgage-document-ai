@@ -18,11 +18,13 @@
     stroke-width: var(--stroke-width); 
     animation: animate-stroke var(--stroke-animation-speed) var(--stroke-animation-easing) infinite;
     stroke-linecap: round;
-    stroke: #2844DE;
+    /* stroke: #2844DE; */
+    /* stroke: white; */
  }
  
  .loaderPathBg {
-   stroke: #E9ECFC;
+   /* stroke: #E9ECFC; */
+   /* stroke: ; */
    stroke-width: var(--stroke-width); 
  }
  

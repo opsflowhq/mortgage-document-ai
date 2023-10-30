@@ -10,13 +10,15 @@ import DocumentEditor from "@/components/DocumentEditor/DocumentEditor";
 import { FieldHoverEvent } from "@/components/DocumentViewer/BoundingBoxCanvas";
 import { DocumentProvider } from "@/components/DocumentProvider";
 import { get, set } from "idb-keyval";
+import { LocalFile } from "@/types";
+import { getLocalFile, setLocalFile } from "@/utils";
 
 
-const processDocument = async (rawDocument: Document) => {
+const processDocument = async (fileStorageKey: string) => {
     try {
-        const file = await get('b8c646e9-90ed-4dd9-9af3-d99c2338c7ce');
+        const file = await getLocalFile(fileStorageKey);
         console.log({file})
-        if (file.processDocument) return file.processDocument as ProcessedDocument; //TODO: Type File
+        if (file.processedDocument) return file.processedDocument;
 
         const formData = new FormData();
         formData.append('document', file.source);
@@ -28,10 +30,10 @@ const processDocument = async (rawDocument: Document) => {
 
         console.log('PAID REQUEST TO THE SERVER');
 
-        const processDocument = await response.json() as ProcessedDocument;
-        await set('b8c646e9-90ed-4dd9-9af3-d99c2338c7ce', {...file, processDocument})
+        const processedDocument = await response.json() as ProcessedDocument;
+        await setLocalFile(fileStorageKey, {...file, processedDocument});
 
-        return processDocument;
+        return processedDocument;
     } catch (e) {
         console.log(e)
     }
@@ -40,21 +42,21 @@ const processDocument = async (rawDocument: Document) => {
 
 
 export default function DocumentPage({ params }: { params: { documentId: string } }) {
-    const documentId = params.documentId;
-    const [rawDocument, setRawDocument] = useState<null | Document>(null);
+    const fileStorageKey = params.documentId;
+    // const [rawDocument, setRawDocument] = useState<null | Document>(null);
     // const [hoveredField, setHoveredField] = useState<null | FieldHoverEvent>(null);
 
-    const { data: processedDocument, error, isLoading: isDocumentProcessing } = useSWR(rawDocument, processDocument, {});
+    const { data: processedDocument, error, isLoading: isDocumentProcessing } = useSWR(fileStorageKey, processDocument, {});
 
     const documentModel = Form1003.documentModel;
     const documentData = processedDocument?.data;
     const documentPages = processedDocument?.pages;
     const documentMeta = processedDocument?.meta;
 
-    useEffect(() => {
-        const documentJson = localStorage.getItem(documentId);
-        if (documentJson) setRawDocument(JSON.parse(documentJson));
-    }, []);
+    // useEffect(() => {
+    //     const documentJson = localStorage.getItem(documentId);
+    //     if (documentJson) setRawDocument(JSON.parse(documentJson));
+    // }, []);
 
     // console.log('Hovered field ->', hoveredField);
 
