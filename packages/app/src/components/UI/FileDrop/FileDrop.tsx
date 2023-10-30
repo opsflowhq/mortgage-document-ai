@@ -5,6 +5,7 @@ import CloudArrowUp from '@/assets/images/icons/cloud-arrow-up';
 import { XMark } from '@/assets/images/icons/x-mark';
 import DocumentIcon from '@/assets/images/icons/document-icon';
 import FileListItem from './FileListItem';
+import clsx from 'clsx';
 
 
 interface FileDropProps {
@@ -14,7 +15,7 @@ interface FileDropProps {
     accept?: string[]; //file extensions e.g. ['.pdf', '.mp3']
 }
 
-const FileDrop = ({onFilesChange, files, multiple=true, accept}: FileDropProps) => {
+const FileDrop = ({ onFilesChange, files, multiple = true, accept }: FileDropProps) => {
     const [isOver, setIsOver] = useState(false);
     // const [files, setFiles] = useState<File[]>([]);
 
@@ -48,7 +49,7 @@ const FileDrop = ({onFilesChange, files, multiple=true, accept}: FileDropProps) 
 
         const filteredFiles = droppedFiles.filter(f => {
             if (accept === undefined) return true;
-            const matchesExtension = accept?.some(ext => f.name.includes(ext)); 
+            const matchesExtension = accept?.some(ext => f.name.includes(ext));
             const matchesType = accept?.some(ext => f.type.includes(ext));
 
             return matchesExtension || matchesType;
@@ -80,16 +81,10 @@ const FileDrop = ({onFilesChange, files, multiple=true, accept}: FileDropProps) 
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
                 onClick={handleClick}
-                className="bg-white border border-dashed px-4 py-10 rounded-md flex flex-col items-center cursor-pointer"
-            // style={{
-            //   display: 'flex',
-            //   justifyContent: 'center',
-            //   alignItems: 'center',
-            //   height: '50px',
-            //   width: '300px',
-            //   border: '1px dotted',
-            //   backgroundColor: isOver ? 'lightgray' : 'white',
-            // }}
+                className={clsx(
+                    "bg-white hover:bg-background border border-dashed px-4 py-10 rounded-md flex flex-col items-center cursor-pointer",
+                    isOver && "bg-background"
+                )}
             >
                 <div className='w-12 h-12 p-3 bg-background-dark rounded-full mb-4'>
                     <CloudArrowUp className='h-auto' />

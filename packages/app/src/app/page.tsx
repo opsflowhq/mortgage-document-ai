@@ -12,7 +12,6 @@ import Button from "@/components/UI/Button";
 import ArrowSmallRight from "@/assets/images/icons/arrow-small-right";
 import ExclamationCircle from "@/assets/images/icons/exclamation-circle";
 import Link from "next/link";
-import { get, set } from 'idb-keyval';
 import config from "@/utils/config";
 import { setLocalFile } from "@/utils";
 
@@ -40,14 +39,12 @@ export default function Home() {
         setLoading(true);
         const { data } = await axios.get<Blob>(sampleFileUrl, { responseType: 'blob' });
         await processFile(new File([data], 'sample_form_1003.pdf', { type: 'application/pdf' }));
-        setLoading(false);
     };
 
 
     const extractDataHandler = async () => {
         setLoading(true);
         await processFile(files[0])
-        setLoading(false);
     }
 
 
@@ -65,7 +62,7 @@ export default function Home() {
                     </span>
                 </a>
             </header>
-            <main className="max-w-screen-sm mx-auto my-20">
+            <main className="max-w-screen-sm mx-auto my-20 px-4">
                 {/* <div className=""> */}
                 <div className="mb-12">
                     <h2 className="text-sm mb-4">OCR & AI FOR MORTGAGE DOCUMENTS</h2>
@@ -89,7 +86,6 @@ export default function Home() {
                             <div className="flex justify-between items-center p-4 mb-4 bg-background rounded-md">
                                 <span className="text-sm">Don&apos;t have filled 1003 handy?</span>
                                 <Button style="underline" icon={ArrowSmallRight} onClick={sampleFileHandler} disabled={isLoading}>Use sample file</Button>
-                                {/* <div onClick={sampleFileHandler}>Use sample file →</div> */}
                             </div>)
                     }
 
