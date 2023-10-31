@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "API for 1003 processing",
   "main": "app.ts",
+  "type": "commonjs",
   "license": "MIT",
   "scripts": {
     "start": "node dist/app.js",
-    "build": "tsc",
+    "build": "tsc -b",
     "dev": "nodemon app.ts"
   },
   "dependencies": {

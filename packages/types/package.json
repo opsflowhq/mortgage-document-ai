@@ -1,8 +1,12 @@
 {
     "name": "@urla1003/types",
+    "type": "commonjs",
     "version": "1.0.0",
-    "main": "./src/index.ts",
+    "main": "./dist/index.js",
     "types": "./src/index.ts",
+    "scripts": {
+        "build": "tsc"
+    },
     "devDependencies": {
         "typescript": "5.2.2"
     }
