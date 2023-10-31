@@ -23,7 +23,7 @@ const processDocument = async (fileStorageKey: string) => {
         const formData = new FormData();
         formData.append('document', file.source);
 
-        const response = await fetch("http://localhost:3001/document/process", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/document/process`, {
             method: "POST",
             body: formData
         });
