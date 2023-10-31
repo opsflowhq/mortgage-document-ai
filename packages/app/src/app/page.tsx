@@ -16,7 +16,7 @@ import config from "@/utils/config";
 import { setLocalFile } from "@/utils";
 
 
-const sampleFileUrl = "http://localhost:3001/urla-samples/urla_borrower_information.pdf";
+const sampleFileUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/urla-samples/urla_borrower_information.pdf`;
 
 const toBase64 = (file: File) => new Promise<string | ArrayBuffer | null>((resolve, reject) => {
     const reader = new FileReader();
