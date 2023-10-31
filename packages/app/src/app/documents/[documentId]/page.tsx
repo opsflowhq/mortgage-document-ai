@@ -17,7 +17,7 @@ import { getLocalFile, setLocalFile } from "@/utils";
 const processDocument = async (fileStorageKey: string) => {
     try {
         const file = await getLocalFile(fileStorageKey);
-        console.log({file})
+        console.log({ file })
         if (file.processedDocument) return file.processedDocument;
 
         const formData = new FormData();
@@ -31,7 +31,7 @@ const processDocument = async (fileStorageKey: string) => {
         console.log('PAID REQUEST TO THE SERVER');
 
         const processedDocument = await response.json() as ProcessedDocument;
-        await setLocalFile(fileStorageKey, {...file, processedDocument});
+        await setLocalFile(fileStorageKey, { ...file, processedDocument });
 
         return processedDocument;
     } catch (e) {
@@ -43,8 +43,7 @@ const processDocument = async (fileStorageKey: string) => {
 
 export default function DocumentPage({ params }: { params: { documentId: string } }) {
     const fileStorageKey = params.documentId;
-    // const [rawDocument, setRawDocument] = useState<null | Document>(null);
-    // const [hoveredField, setHoveredField] = useState<null | FieldHoverEvent>(null);
+
 
     const { data: processedDocument, error, isLoading: isDocumentProcessing } = useSWR(fileStorageKey, processDocument, {});
 
@@ -53,19 +52,13 @@ export default function DocumentPage({ params }: { params: { documentId: string 
     const documentPages = processedDocument?.pages;
     const documentMeta = processedDocument?.meta;
 
-    // useEffect(() => {
-    //     const documentJson = localStorage.getItem(documentId);
-    //     if (documentJson) setRawDocument(JSON.parse(documentJson));
-    // }, []);
 
-    // console.log('Hovered field ->', hoveredField);
 
 
     return (
         <div className="grid grid-cols-[450px,1fr] h-screen">
             <DocumentProvider
                 isLoading={!processedDocument && !error}
-                // isLoading={!processedDocument && !error}
                 isDocumentProcessing={isDocumentProcessing}
                 documentData={documentData}
                 documentModel={documentModel}
@@ -73,23 +66,8 @@ export default function DocumentPage({ params }: { params: { documentId: string 
                 documentMeta={documentMeta}
 
             >
-                <DocumentEditor
-                // isLoading={isLoading}
-                // documentModel={documentModel}
-                // documentData={documentData}
-                // hoveredField={hoveredField}
-                />
-                <DocumentViewer
-
-                //Document data
-                // isLoading={isLoading}
-                // documentPages={documentPages}
-                // documentData={documentData}
-
-                //Field hover
-                // onFieldHover={(e) => setHoveredField(e)}
-                // hoveredField={hoveredField}
-                />
+                <DocumentEditor />
+                <DocumentViewer />
             </DocumentProvider>
         </div>
     );
