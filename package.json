@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "turbo dev",
-    "build": "turbo build"
+    "build": "turbo build --no-cache --force"
   },
   "devDependencies": {
     "turbo": "^1.10.16",

@@ -19,7 +19,7 @@ const port = 3001;
 const storage = multer.memoryStorage(); // Store the file in memory
 const upload = multer({ storage: storage });
 
-app.use(cors())
+app.use(cors({origin: ['https://demo.mortgageflow.io']}))
 
 app.post("/document/process", upload.single('document'), async (req, res) => {
 
