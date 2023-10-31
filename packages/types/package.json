@@ -5,7 +5,7 @@
     "main": "./dist/index.js",
     "types": "./src/index.ts",
     "scripts": {
-        "build": "tsc"
+        "build": "tsc -b"
     },
     "devDependencies": {
         "typescript": "5.2.2"
