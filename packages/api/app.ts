@@ -11,7 +11,6 @@ import {Form1003, DocumentData, PageAnchor, Point, ProcessedDocument, Page, Docu
 
 const documentAiClient = new DocumentProcessorServiceClient();
 const processorName = "projects/614556138526/locations/us/processors/a596e4ceda5829e";
-const filePath = "../../static/urla_borrower_information.pdf";
 
 const app = express();
 const port = 3001;

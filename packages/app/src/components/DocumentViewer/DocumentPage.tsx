@@ -33,7 +33,7 @@ function DocumentPage({ page, pageData }: DocumentPageProps) {
                 src={imageDataURL} 
                 width={0}
                 height={0}
-                style={{maxWidth: page.image.width, minWidth: 700}}
+                style={{maxWidth: page.image.width < 1200 ? page.image.width : 1200, minWidth: 700}}
                 alt="DocumentPage" 
                 className="h-auto max-w-none w-full" 
             />
