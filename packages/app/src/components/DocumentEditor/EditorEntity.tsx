@@ -39,7 +39,7 @@ export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, la
                             isLoading={isLoading}
                             isEditing={false} //for future iteration
                             onMouseEnter={() => {
-                                setHoveredField({
+                                if (!isLoading) setHoveredField({
                                     entityKey: entityKey,
                                     fieldKey: fieldKey,
                                 });
