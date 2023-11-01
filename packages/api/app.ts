@@ -19,7 +19,7 @@ const port = 3001;
 const storage = multer.memoryStorage(); // Store the file in memory
 const upload = multer({ storage: storage });
 
-app.use(cors({origin: ['https://demo.mortgageflow.io']}))
+app.use(cors({origin: ['https://demo.mortgageflow.io', 'http://localhost:3000']}))
 
 app.post("/document/process", upload.single('document'), async (req, res) => {
 
@@ -27,22 +27,22 @@ app.post("/document/process", upload.single('document'), async (req, res) => {
   const uploadedFile = req.file;
   if (!uploadedFile) throw new Error('File upload error');
 
-  // console.log({uploadedFile})
+  console.log({uploadedFile})
 
-  // const [result] = await documentAiClient.processDocument({
-  //   name: processorName,
-  //   rawDocument: {
-  //     content: uploadedFile.buffer.toString('base64'),
-  //     mimeType: uploadedFile.mimetype,
-  //   },
-  // });
+  const [result] = await documentAiClient.processDocument({
+    name: processorName,
+    rawDocument: {
+      content: uploadedFile.buffer.toString('base64'),
+      mimeType: uploadedFile.mimetype,
+    },
+  });
 
-  // let { document } = result;
+  let { document } = result;
 
-  // if(!document) throw new Error("Document parsing failed");
+  if(!document) throw new Error("Document parsing failed");
 
-  const documentJson = await fs.readFile('../../static/parsed.json', 'utf-8');
-  const document = JSON.parse(documentJson) as google.cloud.documentai.v1.IDocument;
+  // const documentJson = await fs.readFile('../../static/parsed.json', 'utf-8');
+  // const document = JSON.parse(documentJson) as google.cloud.documentai.v1.IDocument;
 
 
   const entities = document?.entities;
