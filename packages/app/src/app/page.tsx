@@ -31,8 +31,9 @@ export default function Home() {
     const router = useRouter();
 
     const processFile = async (file: File) => {
-        await setLocalFile(config.fileStorageKey, {source: file, processedDocument: null});
-        router.push(`/documents/${config.fileStorageKey}`);
+        const fileStorageKey = uuidv4();
+        await setLocalFile(fileStorageKey, {source: file, processedDocument: null});
+        router.push(`/documents/${fileStorageKey}`);
     }
 
     const sampleFileHandler = async () => {
