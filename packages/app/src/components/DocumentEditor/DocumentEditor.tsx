@@ -57,7 +57,7 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
 
                 </div>
             </div>
-            {isDocumentProcessing && <LoadingIndicator /> }
+            {isDocumentProcessing && <LoadingIndicator />}
             <div className="grow overflow-scroll relative">
                 {
                     Object.keys(documentModel).map(entityKey => {
@@ -79,7 +79,7 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
             </div>
             <div className="p-4 border-t">
                 <Button
-                    href={`https://jsonhero.io/new?j=${btoa(JSON.stringify(documentData))}`}
+                    // href={`https://jsonhero.io/new?j=${btoa(JSON.stringify(documentData))}`}
                     target="_blank"
                     style="primary"
                     icon={ArrowUpRight}
