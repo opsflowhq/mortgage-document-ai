@@ -25,12 +25,7 @@ export default function DocumentField({ label, field, isHovering, isEditing, isL
     const confidence = field && getAverageFieldConfidence(field);
     const value = field && fieldToString(field);
 
-
-
-
     const elementRef = useRef<HTMLDivElement | null>(null);
-
-
 
     const styleVariants = {
         plain: 'bg-white',

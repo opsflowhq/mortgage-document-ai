@@ -10,7 +10,7 @@ const config: Config = {
     "./src/**/*.{js,ts,tsx,jsx}",
   ],
   theme: {
-    
+
     fontFamily: {
       "sans": ['"Inter"', ...defaultTheme.fontFamily.sans],
     },
@@ -36,6 +36,7 @@ const config: Config = {
         },
         warning: {
           DEFAULT: "#FF9900",
+          light: "#FFF3E2",
         }
       },
       boxShadow: {

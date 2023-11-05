@@ -13,6 +13,8 @@ import circleLoaderAnimation from '@/assets/animations/circle-loader3.json';
 import CircleLoader from "../UI/CircleLoader/CircleLoader";
 import LoadingIndicator from "./LoadingIndicator";
 import { documentDataToJson } from "@/utils";
+import { useCallback } from "react";
+import axios from "axios";
 
 
 
@@ -32,7 +34,13 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
 
     const [fileName, fileExtension] = documentMeta ? documentMeta?.sourceFileName.split('.') : [];
 
-    console.log("JSON ->", JSON.stringify(documentData))
+    const handleViewJson = useCallback(async () => {
+        const { data } = await axios.post('https://jsonhero.io/api/create.json', {
+            title: documentMeta?.sourceFileName,
+            content: documentData,
+        });
+        window.open(data.location, '_blank');
+    }, [documentData, documentMeta]);
 
     return (
         <div className="h-screen shadow-2xl flex flex-col relative text-sm z-10">
@@ -82,11 +90,12 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
             </div>
             <div className="p-4 border-t">
                 <Button
-                    href={`https://jsonhero.io/new?j=${documentDataToJson(documentData)}`}
-                    target="_blank"
+                    // href={`https://jsonhero.io/new?j=${documentDataToJson(documentData)}`}
+                    // target="_blank"
                     style="primary"
                     icon={ArrowUpRight}
                     disabled={isLoading}
+                    onClick={handleViewJson}
                 >
                     View JSON data
                 </Button>

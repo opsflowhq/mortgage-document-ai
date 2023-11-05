@@ -14,6 +14,7 @@
         "javascript": "javascriptreact"
     },
     "cSpell.words": [
+        "clsx",
         "mortgageflow"
     ],
     "editor.formatOnSave": true,

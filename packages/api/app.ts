@@ -10,6 +10,8 @@ import {
 import { promises as fs } from "fs";
 import { google } from "@google-cloud/documentai/build/protos/protos";
 
+import { PDFDocument } from 'pdf-lib';
+
 import {
     DocumentData,
     DocumentEntityData,
@@ -44,25 +46,39 @@ app.post("/document/process", upload.single("document"), async (req, res) => {
     if (!uploadedFile) throw new Error("File upload error");
 
     console.log({ uploadedFile });
+    //Prepare file
+    const pdfFile = await PDFDocument.load(uploadedFile.buffer);
+    const numberOfPages = pdfFile.getPages().length;
+    const subFile = await PDFDocument.create();
+
+    // Create a new "sub" document
+    for (let i = 0; i < numberOfPages && i < 3; i++) {
+
+        // copy the page at current index
+        const [copiedPage] = await subFile.copyPages(pdfFile, [i])
+        subFile.addPage(copiedPage);
+    }
+
+    const subFileBase64 = await subFile.saveAsBase64();
 
     //Take into a different function
-    // const [result] = await documentAiClient.processDocument({
-    //   name: processorName,
-    //   rawDocument: {
-    //     content: uploadedFile.buffer.toString("base64"),
-    //     mimeType: uploadedFile.mimetype,
-    //   },
-    // });
+    const [result] = await documentAiClient.processDocument({
+        name: processorName,
+        rawDocument: {
+            content: subFileBase64,
+            mimeType: uploadedFile.mimetype,
+        }
+    });
 
-    // let { document } = result;
+    let { document } = result;
 
-    // // if (!document) throw new Error("Document parsing failed");
+    if (!document) throw new Error("Document parsing failed");
 
-    // // //TODO: Replace with the Google Cloud
-    // // await fs.writeFile("../../static/parsed.json", JSON.stringify(document));
+    //TODO: Replace with the Google Cloud
+    await fs.writeFile("../../static/parsed.json", JSON.stringify(document));
 
-    const file = await fs.readFile("../../static/parsed.json", "utf-8");
-    const document = JSON.parse(file) as google.cloud.documentai.v1.IDocument;
+    // const file = await fs.readFile("../../static/parsed.json", "utf-8");
+    // const document = JSON.parse(file) as google.cloud.documentai.v1.IDocument;
     // console.log(document);
 
     const entities = document?.entities;

@@ -293,20 +293,27 @@ export namespace Form1003 {
 
 	export const documentModel: DocumentModel = {
 		//Section 1a
+		application: {
+			label: "Application information",
+			fields: {
+				loanNumber: { key: FieldId.LENDER_LOAN_NUMBER, label: "Lender loan no." },
+				agencyCaseNumber: { key: FieldId.AGENCY_CASE_NUMBER, label: "Agency case no." }
+			}
+		},
 		borrower: {
 			label: "Borrower information (1a)",
 			fields: {
 				name: { key: FieldId.BORROWER_NAME_1A, label: "Name" },
 				ssn: { key: FieldId.BORROWER_SOCIAL_SECURITY_NUMBER_1A, label: "SSN" },
 				dob: { key: FieldId.BORROWER_DATE_OF_BIRTH_1A, label: "Date of Birth" },
-				citizenship: {
-					key: FieldId.BORROWER_CITIZENSHIP_1A,
-					label: "Citizenship",
-				},
-				martialStatus: {
-					key: FieldId.BORROWER_MARTIAL_STATUS,
-					label: "Martial status",
-				},
+				// citizenship: {
+				// 	key: FieldId.BORROWER_CITIZENSHIP_1A,
+				// 	label: "Citizenship",
+				// },
+				// martialStatus: {
+				// 	key: FieldId.BORROWER_MARTIAL_STATUS,
+				// 	label: "Martial status",
+				// },
 				dependentsNumber: {
 					key: FieldId.BORROWER_DEPENDANTS_NUMBER_1A,
 					label: "Dependents number",
@@ -735,6 +742,96 @@ export namespace Form1003 {
 				},
 			},
 		},
+
+		//Section 2a
+		primaryAssets: {
+			label: "Assets (2a)",
+			fields: {
+				assets: {
+					key: FieldId.ASSET_ACCOUNT_2A,
+					label: "Assets",
+					isArray: true,
+					fields: {
+						accountType: { key: FieldId['ASSET_ACCOUNT_2A:ACCOUNT_TYPE'], label: "Account type" },
+						financialInstitution: { key: FieldId['ASSET_ACCOUNT_2A:FINANCIAL_INSTITUTION'], label: "Financial institution" },
+						accountNumber: { key: FieldId['ASSET_ACCOUNT_2A:ACCOUNT_NUMBER'], label: 'Account number' },
+						cashOrMarketValue: { key: FieldId['ASSET_ACCOUNT_2A:CASH_OR_MARKET_VALUE'], label: "Cash or Market Value" }
+					}
+				},
+				totalAmount: {
+					key: FieldId.ASSET_ACCOUNTS_TOTAL_VALUE_2A,
+					label: "Total amount"
+				}
+			}
+		},
+
+		//Section 2b
+		otherAssets: {
+			label: "Other Assets (2b)",
+			fields: {
+				doesNotApply: {
+					key: FieldId.OTHER_ASSETS_AND_CREDIT_DOES_NOT_APPLY_2B,
+					label: "Does not apply",
+				},
+				assets: {
+					key: FieldId.OTHER_ASSET_OR_CREDIT_2B,
+					label: "Assets",
+					isArray: true,
+					fields: {
+						assetType: { key: FieldId['OTHER_ASSET_OR_CREDIT_2B:ASSET_OR_CREDIT_TYPE'], label: "Asset type" },
+						cashOrMarketValue: { key: FieldId['OTHER_ASSET_OR_CREDIT_2B:CASH_OR_MARKET_VALUE'], label: "Cash or Market Value" }
+					}
+				},
+				totalAmount: {
+					key: FieldId.OTHER_ASSETS_AND_CREDITS_TOTAL_AMOUNT_2B,
+					label: "Total amount"
+				}
+			}
+		},
+
+		//Section 2c
+		primaryLiabilities: {
+			label: "Liabilities (2c)",
+			fields: {
+				doesNotApply: {
+					key: FieldId.LIABILITIES_DOES_NOT_APPLY_2C,
+					label: "Does not apply",
+				},
+				assets: {
+					key: FieldId.LIABILITY_2C,
+					label: "Liabilities",
+					isArray: true,
+					fields: {
+						accountType: { key: FieldId['LIABILITY_2C:ACCOUNT_TYPE'], label: "Account type" },
+						companyName: { key: FieldId['LIABILITY_2C:COMPANY_NAME'], label: "Company name" },
+						accountNumber: { key: FieldId['LIABILITY_2C:ACCOUNT_NUMBER'], label: "Account number" },
+						unpaidBalance: { key: FieldId['LIABILITY_2C:UNPAID_BALANCE'], label: "Unpaid balance" },
+						toBePaidOffBeforeClosing: { key: FieldId['LIABILITY_2C:TO_BE_PAID_OFF_AT_OR_BEFORE_CLOSING'], label: "To be paid before closing" },
+						monthlyPayment: { key: FieldId['LIABILITY_2C:MONTHLY_PAYMENT'], label: "Monthly payment" },
+					}
+				}
+			}
+		},
+
+		//Section 2d
+		otherLiabilities: {
+			label: "Other Liabilities (2d)",
+			fields: {
+				doesNotApply: {
+					key: FieldId.OTHER_LIABILITIES_AND_EXPENSES_DOES_NOT_APPLY_2D,
+					label: "Does not apply",
+				},
+				assets: {
+					key: FieldId.OTHER_LIABILITY_AND_EXPENSES_2D,
+					label: "Liabilities",
+					isArray: true,
+					fields: {
+						liabilityType: { key: FieldId['OTHER_LIABILITY_AND_EXPENSES_2D:LIABILITY_NAME'], label: "Liability type" },
+						monthlyPayment: { key: FieldId['OTHER_LIABILITY_AND_EXPENSES_2D:MONTHLY_PAYMENT'], label: "Monthly payment" },
+					}
+				}
+			}
+		}
 	};
 
 	export type EntityId = keyof typeof documentModel;

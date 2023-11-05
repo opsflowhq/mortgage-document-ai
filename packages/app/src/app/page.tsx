@@ -14,6 +14,7 @@ import ExclamationCircle from "@/assets/images/icons/exclamation-circle";
 import Link from "next/link";
 import config from "@/utils/config";
 import { setLocalFile } from "@/utils";
+import Alert from "@/components/UI/Alert";
 
 
 const sampleFileUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/urla-samples/urla_borrower_information.pdf`;
@@ -32,7 +33,7 @@ export default function Home() {
 
     const processFile = async (file: File) => {
         const fileStorageKey = uuidv4();
-        await setLocalFile(fileStorageKey, {source: file, processedDocument: null});
+        await setLocalFile(fileStorageKey, { source: file, processedDocument: null });
         router.push(`/documents/${fileStorageKey}`);
     }
 
@@ -78,7 +79,7 @@ export default function Home() {
                             files={files}
                             onFilesChange={files => setFiles(files)}
                             multiple={false}
-                            accept={['.pdf', '.png', '.jpeg', '.jpg']}
+                            accept={['.pdf']}
                         />
                     </div>
 
@@ -103,14 +104,14 @@ export default function Home() {
 
 
 
-                <div className="text-sm text-primary-light p-4 bg-background rounded flex gap-4 mt-12">
-                    <div className="w-6">
-                        <ExclamationCircle className="w-6 h-6" />
-                    </div>
-                    <span>
-                        While this demo is designed for processing the 1003 form, the same technology can be used to extract data from any mortgage document. If you need guidance on implementing this, please don&apos;t hesitate to <Link href={'https://www.mortgageflow.io/book-a-demo'} target="_blank" className="font-semibold">contact us</Link>.
-                    </span>
-                </div>
+
+                <Alert
+                    style="info"
+                >
+                    <p>
+                        While this demo is designed for processing the Form 1003, the same technology can be used to extract data from any mortgage document. If you need guidance on implementing this, please don&apos;t hesitate to <Link href={'https://www.mortgageflow.io/book-a-demo'} target="_blank" className="font-semibold">contact us</Link>.
+                    </p>
+                </Alert>
                 {/* </div> */}
             </main>
         </>

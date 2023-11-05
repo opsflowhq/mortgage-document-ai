@@ -90,7 +90,7 @@ const FileDrop = ({ onFilesChange, files, multiple = true, accept }: FileDropPro
                     <CloudArrowUp className='h-auto' />
                 </div>
                 <div className='text-sm'>Drop your Form 1003 here or click to upload</div>
-                <div className='text-xs text-primary-light'>Accepted file types: PDF, JPEG, PNG</div>
+                <div className='text-xs text-primary-light'>Accepted file type: PDF</div>
             </div>
 
             <input

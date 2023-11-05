@@ -6,6 +6,10 @@ import { useDocumentContext } from "../DocumentProvider";
 import FieldHoverBox from "./FieldHoverBox";
 import DocumentPageSkeleton from "./DocumentPageSkeleton";
 import { filterFlatDocumentByPage } from "@/utils";
+import Button from "../UI/Button";
+import ExclamationCircle from "@/assets/images/icons/exclamation-circle";
+import Alert from "../UI/Alert";
+import Link from "next/link";
 
 
 interface DocumentViewerProps {
@@ -49,7 +53,20 @@ function DocumentViewer({ }: DocumentViewerProps) {
                     );
                 })}
 
-
+                {flatDocumentData &&
+                    <Alert
+                        style="info-white"
+                        title="Demo limitations"
+                        maxWidth={1000}
+                    >
+                        <p>This tool was built for demo purposes and has limitations listed below. If you need help addressing these limitations please feel free to <Link href={'https://www.mortgageflow.io/book-a-demo'} target="_blank" className="font-semibold">contact us</Link>.</p>
+                        <ul className="list-disc list-inside">
+                            <li>Data is extracted only from the first 3 pages</li>
+                            <li>Radio buttons (circles with dots) aren&apos;t extracted</li>
+                            <li>Model has low precision due to training on a limited dataset</li>
+                        </ul>
+                    </Alert>
+                }
             </div>
         </div>
     );
