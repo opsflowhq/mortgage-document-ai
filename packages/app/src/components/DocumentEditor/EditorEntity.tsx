@@ -16,7 +16,7 @@ interface EditorEntityProps {
 export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, label }: EditorEntityProps) {
 
 
-    const {hoveredField, setHoveredField, isLoading} = useDocumentContext();
+    const { hoveredField, setHoveredField, isLoading } = useDocumentContext();
 
     return (
         <div className="bg-white border-b pt-4">
@@ -26,23 +26,28 @@ export default function DocumentEntity({ fieldsModel, fieldsValue, entityKey, la
             <div>
                 {Object.keys(fieldsModel).map(fieldKey => {
                     const fieldModel = fieldsModel[fieldKey];
-                    const fieldValue = fieldsValue ? fieldsValue[fieldKey] : undefined;
-                    const isHovered = fieldKey === hoveredField?.fieldKey && entityKey === hoveredField.entityKey;
+                    const field = fieldsValue ? fieldsValue[fieldKey] : undefined;
+
+                    // let value =  field?.value;
+                    // let confidence = 
+
+                    // turn otherIncome.sources.1.sourceName into otherIncome.sources and then compare
+                    // Editor doesn't support yet nested fields
+                    const parentHoveredField = hoveredField?.split('.').slice(0, 2).join('.');
+                    const isHovered = parentHoveredField === `${entityKey}.${fieldKey}`;
 
                     return (
                         <EditorField
                             key={`${entityKey}.${fieldKey}`}
                             label={fieldModel.label}
-                            value={fieldValue?.value}
-                            confidence={fieldValue?.confidence}
+                            field={field}
+                            // value={value}
+                            // confidence={fieldValue?.confidence}
                             isHovering={isHovered}
                             isLoading={isLoading}
                             isEditing={false} //for future iteration
                             onMouseEnter={() => {
-                                if (!isLoading) setHoveredField({
-                                    entityKey: entityKey,
-                                    fieldKey: fieldKey,
-                                });
+                                if (!isLoading) setHoveredField(`${entityKey}.${fieldKey}`);
                             }}
                             onMouseLeave={() => setHoveredField(null)}
                         />

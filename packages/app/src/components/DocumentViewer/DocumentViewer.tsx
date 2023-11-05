@@ -1,10 +1,11 @@
 import DocumentPage from "./DocumentPage";
-import { DocumentData, DocumentFieldValue, Page } from "@urla1003/types";
+import { DocumentData, DocumentEntityData, DocumentFieldValue, FlatDocumentData, Page } from "@urla1003/types";
 import { FC, RefObject, memo, useRef } from "react";
 import { FieldHoverEvent, FieldHoverEventHandler } from "./BoundingBoxCanvas";
 import { useDocumentContext } from "../DocumentProvider";
 import FieldHoverBox from "./FieldHoverBox";
 import DocumentPageSkeleton from "./DocumentPageSkeleton";
+import { filterFlatDocumentByPage } from "@/utils";
 
 
 interface DocumentViewerProps {
@@ -17,10 +18,15 @@ interface DocumentViewerProps {
 
 function DocumentViewer({ }: DocumentViewerProps) {
 
-    const { documentData, documentPages, isLoading } = useDocumentContext();
+    const { documentData, flatDocumentData, documentPages, isLoading } = useDocumentContext();
     const documentViewerRef: RefObject<HTMLDivElement> = useRef(null);
 
-    console.log('Document Viewer Render');
+    // console.log('Document Viewer Render');
+    // console.log('FLATTEN', {
+    //     nested: documentData,
+    //     flat: flattenObj(documentData)
+    // });
+
 
     // console.log('Skeleton -> ', DocumentPage.type.Skeleton);
 
@@ -28,21 +34,22 @@ function DocumentViewer({ }: DocumentViewerProps) {
         <div className="bg-background-dark bg-dotted-spacing-4 bg-dotted-gray-400 h-full w-full  overflow-auto" >
             <div className="relative w-fit p-20 m-auto" ref={documentViewerRef}>
                 {isLoading && <DocumentPageSkeleton />}
-                {documentData && documentPages?.map((p, i) => {
-                    const pageData = filterDocumentDataByPage(documentData, i);
+                {flatDocumentData && documentPages?.map((p, i) => {
+
+                    const flatPageData = filterFlatDocumentByPage(flatDocumentData, i);
 
                     return (
                         <DocumentPage
                             key={p.pageNumber}
                             page={p}
-                            pageData={pageData}
+                            flatPageData={flatPageData}
                         // onFieldHover={onFieldHover}
                         // hoveredField={hoveredField}
                         />
                     );
                 })}
 
-                
+
             </div>
         </div>
     );
@@ -50,28 +57,5 @@ function DocumentViewer({ }: DocumentViewerProps) {
 
 export default memo(DocumentViewer);
 
-
-function filterDocumentDataByPage(documentData: DocumentData, pageIndex: string | number) {
-    const pageData: DocumentData = {};
-
-    for (const entityKey in documentData) {
-        const entity = documentData[entityKey];
-
-        for (const fieldKey in entity) {
-            const field = entity[fieldKey];
-            const isFieldOnThePage = field.pageAnchor?.some(pa => pa.page == pageIndex);
-            const isEntityExistOnThePage = !!pageData[entityKey];
-
-
-            if (isFieldOnThePage) {
-                if (!isEntityExistOnThePage) pageData[entityKey] = {};
-                pageData[entityKey][fieldKey] = field;
-            }
-        }
-    }
-
-    return pageData;
-
-}
 
 

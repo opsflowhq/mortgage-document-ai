@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/get-value": "^3.0.4",
     "@types/pdfjs-dist": "^2.10.378",
     "@types/uuid": "^9.0.5",
     "clsx": "^2.0.0",
+    "flat": "^6.0.1",
+    "get-value": "^3.0.1",
     "idb-keyval": "^6.2.1",
     "lottie-react": "^2.4.0",
     "next": "latest",

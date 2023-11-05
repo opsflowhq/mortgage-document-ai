@@ -167,8 +167,7 @@ app.post("/document/process", upload.single("document"), async (req, res) => {
     console.log(uploadedFile);
 
     const resultDocument: ProcessedDocument = {
-        // pages: cleanedPages, //TODO: Uncomment
-        pages: [],
+        pages: cleanedPages, //TODO: Uncomment
         data: documentData,
         meta: {
             type: "Form 1003",
@@ -186,7 +185,7 @@ const mapEntitiesToModel = (entityFieldsModel: Form1003.DocumentEntityFieldsMode
 
     for (const fieldKey of Object.keys(entityFieldsModel)) {
         const fieldModel = entityFieldsModel[fieldKey];
-        const nestedFieldModel = fieldModel.nestedFieldModel;
+        const nestedFieldModel = fieldModel.fields;
         const filteredEntities = entities.filter(e => e.type === fieldModel.key);
 
         // if (nestedFieldModel) {

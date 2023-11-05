@@ -1,16 +1,18 @@
 import { useEffect, useRef } from "react";
-import { Page } from "@urla1003/types";
+import { DocumentFieldValueUnion, Page } from "@urla1003/types";
 import clsx from "clsx";
 
 import Check from '@/assets/images/icons/check';
 import ExclamationTriangle from '@/assets/images/icons/exclamation-triangle';
 import SkeletonLoader from "@/components/UI/SkeletonLoader";
+import { documentEntityToString, fieldToString, getAverageFieldConfidence, isDocumentFieldValue } from "@/utils";
 
 
 interface EditorFieldProps {
     label: string;
-    value?: string | null;
-    confidence?: number;
+    // value?: string | null;
+    // confidence?: number;
+    field?: DocumentFieldValueUnion;
     isHovering: boolean;
     isEditing: boolean;
     isLoading?: boolean;
@@ -19,7 +21,12 @@ interface EditorFieldProps {
 }
 
 
-export default function DocumentField({ label, value, isHovering, isEditing, isLoading, onMouseEnter, onMouseLeave, confidence }: EditorFieldProps) {
+export default function DocumentField({ label, field, isHovering, isEditing, isLoading, onMouseEnter, onMouseLeave, }: EditorFieldProps) {
+    const confidence = field && getAverageFieldConfidence(field);
+    const value = field && fieldToString(field);
+
+
+
 
     const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -58,6 +65,8 @@ export default function DocumentField({ label, value, isHovering, isEditing, isL
     }, [isHovering])
 
 
+
+
     const confidenceBadge = {
         icon: confidence && confidence < 95 ? <ExclamationTriangle className="w-4 h-4 stroke-warning stroke-2" /> : <Check className="w-4 h-4 stroke-success stroke-2" />,
         toolTipText: `${confidence}% confidence`
@@ -67,6 +76,13 @@ export default function DocumentField({ label, value, isHovering, isEditing, isL
     //     confidenceBadge.icon = ExclamationTriangleImg;
     //     confidenceBadge.toolTipText = `Low confidence. `
     // }
+
+    // let displayValue: string | undefined;
+
+    // console.log('Display value', value)
+    // if (typeof value === 'object') displayValue = JSON.stringify(value);
+    // else displayValue = value;
+
 
     return (
 
@@ -80,16 +96,18 @@ export default function DocumentField({ label, value, isHovering, isEditing, isL
                 {confidenceBadge.icon}
                 <span className="tooltip bg-black/70 left-0 p-1 -top-5 text-white w-max rounded">{confidenceBadge.toolTipText}</span>
             </div>
-            <div className="flex items-center font-medium">
+            <div className="flex items-center font-medium whitespace-nowrap mr-4">
                 {label}
             </div>
-            <div className="flex items-center grow justify-end text-primary-light">
+            <div className="flex items-center grow justify-end text-primary-light overflow-hidden">
                 <SkeletonLoader
                     height={14}
                     width={`${Math.floor(Math.random() * 31) + 30}%`}
                     isLoading={isLoading}
                 >
-                    {value}
+                    <div className="truncate max-w-full">
+                        {value}
+                    </div>
                 </SkeletonLoader>
             </div>
         </div>

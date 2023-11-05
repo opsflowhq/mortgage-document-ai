@@ -1,4 +1,4 @@
-import { DocumentData, DocumentFieldValue, Page } from "@urla1003/types";
+import { DocumentData, DocumentFieldValue, FlatDocumentData, Page } from "@urla1003/types";
 import Image from 'next/image'
 import { memo, useState } from "react";
 import { Svg, Distance, Circle } from 'react-svg-path';
@@ -21,10 +21,10 @@ export type FieldHoverEventHandler = (e: FieldHoverEvent | null) => void;
 
 interface BoundingBoxCanvasProps {
     pageNumber: Page['pageNumber'];
-    pageData: DocumentData;
+    flatPageData: FlatDocumentData;
 }
 
-function BoundingBoxCanvas({ pageData, pageNumber }: BoundingBoxCanvasProps) {
+function BoundingBoxCanvas({ flatPageData, pageNumber }: BoundingBoxCanvasProps) {
 
     const { setHoveredField, hoveredField } = useDocumentContext();
 
@@ -46,55 +46,46 @@ function BoundingBoxCanvas({ pageData, pageNumber }: BoundingBoxCanvasProps) {
 
     let isHoverBoxVisible = false;
 
-    for (const entityKey in pageData) {
-        const entity = pageData[entityKey];
+    for (const fieldKey in flatPageData) {
 
-        for (const fieldKey in entity) {
-            const field = entity[fieldKey];
+        const field = flatPageData[fieldKey];
 
-            if (entityKey === hoveredField?.entityKey && fieldKey == hoveredField.fieldKey) isHoverBoxVisible = true;
+        if (fieldKey === hoveredField) isHoverBoxVisible = true;
 
-            polygons.push(
-                <BoundingBox
-                    id={`${entityKey}.${fieldKey}`}
-                    field={field}
-                    key={`${entityKey}.${fieldKey}`}
-                    onClick={() => alert(`${entityKey}.${fieldKey}`)}
-                    onMouseEnter={(e) => {
-                        // const boundingBoxSvg = e.currentTarget;
-                        // const parent = boundingBoxSvg.parentElement;
+        polygons.push(
+            <BoundingBox
+                id={fieldKey}
+                field={field}
+                key={fieldKey}
+                // onClick={() => alert(fieldKey)}
+                onMouseEnter={(e) => {
+                    // const boundingBoxSvg = e.currentTarget;
+                    // const parent = boundingBoxSvg.parentElement;
 
-                        // if (parent) {
-                        //     // const svgRect = parent.getBoundingClientRect();
-                        //     // const elementRect = boundingBoxSvg.getBoundingClientRect();
+                    // if (parent) {
+                    //     // const svgRect = parent.getBoundingClientRect();
+                    //     // const elementRect = boundingBoxSvg.getBoundingClientRect();
 
 
 
-                        // const offsetX = elementRect.left - svgRect.left;
-                        // const offsetY = elementRect.top - svgRect.top + elementRect.height;
+                    // const offsetX = elementRect.left - svgRect.left;
+                    // const offsetY = elementRect.top - svgRect.top + elementRect.height;
 
 
-                        setHoveredField({
-                            entityKey,
-                            fieldKey,
-                            // pageNumber,
-                            // fieldPageAnchor: {
-                            //     x: offsetX,
-                            //     y: offsetY,
-                            // }
-                        })
-                        // }
-                    }}
-                    onMouseLeave={mouseLeaveHandler}
-                />
-            );
+                    //TODO: Refactor
+                    setHoveredField(fieldKey);
+                    // // }
+                }}
+                onMouseLeave={mouseLeaveHandler}
+            />
+        );
 
-        }
+
     }
 
     // let fieldHoverBox = null;
     // if (isHoverBoxVisible) fieldHoverBox = (
-        
+
     // );
 
     return (

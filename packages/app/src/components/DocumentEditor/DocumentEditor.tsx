@@ -12,6 +12,7 @@ import Lottie from "lottie-react";
 import circleLoaderAnimation from '@/assets/animations/circle-loader3.json';
 import CircleLoader from "../UI/CircleLoader/CircleLoader";
 import LoadingIndicator from "./LoadingIndicator";
+import { documentDataToJson } from "@/utils";
 
 
 
@@ -30,6 +31,8 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
     const { documentModel, documentData, documentMeta, isLoading, isDocumentProcessing } = useDocumentContext();
 
     const [fileName, fileExtension] = documentMeta ? documentMeta?.sourceFileName.split('.') : [];
+
+    console.log("JSON ->", JSON.stringify(documentData))
 
     return (
         <div className="h-screen shadow-2xl flex flex-col relative text-sm z-10">
@@ -79,7 +82,7 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
             </div>
             <div className="p-4 border-t">
                 <Button
-                    // href={`https://jsonhero.io/new?j=${btoa(JSON.stringify(documentData))}`}
+                    href={`https://jsonhero.io/new?j=${documentDataToJson(documentData)}`}
                     target="_blank"
                     style="primary"
                     icon={ArrowUpRight}

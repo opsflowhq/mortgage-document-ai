@@ -17,8 +17,14 @@ export type DocumentData = {
 };
 
 export type DocumentEntityData = {
-	[key: string]: DocumentFieldValue | DocumentEntityData | DocumentEntityData[] | DocumentFieldValue[];
+	[key: string]: DocumentFieldValueUnion
 };
+
+export type DocumentFieldValueUnion = DocumentFieldValue | DocumentEntityData | DocumentEntityData[] | DocumentFieldValue[];
+
+export type FlatDocumentData = {
+	[key: string]: DocumentFieldValue
+}
 
 export interface Document {
 	name: string;
@@ -271,7 +277,7 @@ export namespace Form1003 {
 		label: string;
 		key: FieldId;
 		isArray?: boolean;
-		nestedFieldModel?: DocumentEntityFieldsModel;
+		fields?: DocumentEntityFieldsModel;
 	}
 
 	export interface DocumentEntityFieldsModel {
@@ -712,7 +718,7 @@ export namespace Form1003 {
 					label: "Income sources",
 					key: FieldId.INCOME_FROM_OTHER_SOURCES_1E,
 					isArray: true,
-					nestedFieldModel: {
+					fields: {
 						name: {
 							label: "Source name",
 							key: FieldId["INCOME_FROM_OTHER_SOURCES_1E:INCOME_SOURCE_NAME"],
