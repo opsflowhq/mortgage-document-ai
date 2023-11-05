@@ -5,5 +5,5 @@ dist/**
 .next/**
 **/**/.env
 **/**/secretes
-**/**/dist
+**/**/dist/
 static/
