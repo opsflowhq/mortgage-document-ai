@@ -75,7 +75,7 @@ app.post("/document/process", upload.single("document"), async (req, res) => {
     if (!document) throw new Error("Document parsing failed");
 
     //TODO: Replace with the Google Cloud
-    await fs.writeFile("../../static/parsed.json", JSON.stringify(document));
+    // await fs.writeFile("./parsed.json", JSON.stringify(document));
 
     // const file = await fs.readFile("../../static/parsed.json", "utf-8");
     // const document = JSON.parse(file) as google.cloud.documentai.v1.IDocument;
