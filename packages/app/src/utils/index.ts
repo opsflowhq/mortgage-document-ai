@@ -23,6 +23,8 @@ export function flattenDocument(ob: DocumentData | DocumentFieldValueUnion) {
         // We check the type of the i using
         // typeof() function and recursively
         // call the function again
+
+        //@ts-ignore
         const nested = ob[i];
         if ((typeof nested) === 'object' && !nested?.value) {
 
