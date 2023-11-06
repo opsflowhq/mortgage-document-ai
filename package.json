@@ -1,5 +1,5 @@
 {
-  "name": "urla1003",
+  "name": "mortgage-document-ai",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,7 +9,10 @@
   ],
   "scripts": {
     "dev": "turbo dev",
-    "build": "turbo build --no-cache --force"
+    "build": "turbo build --no-cache --force",
+    "models": "yarn workspaces @mortgage-document-ai/models",
+    "ui": "yarn workspaces @mortgage-document-ai/ui",
+    "api": "yarn workspaces @mortgage-document-ai/api"
   },
   "devDependencies": {
     "turbo": "^1.10.16",

@@ -10,6 +10,6 @@ services:
   plan: free
   name: demo.mortgageflow.io
   runtime: node
-  rootDir: packages/app
-  buildCommand: cd ../..; yarn workspace app install; yarn build --filter=app...
+  rootDir: packages/ui
+  buildCommand: cd ../..; yarn workspace app install; yarn build --filter=ui...
   startCommand: yarn start

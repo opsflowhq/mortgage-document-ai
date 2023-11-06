@@ -1,3 +1,6 @@
+export * from './utils'
+
+
 export type Point = { x: number; y: number };
 
 //https://cloud.google.com/document-ai/docs/reference/rest/v1/Document#pageanchor

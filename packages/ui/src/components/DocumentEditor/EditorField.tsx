@@ -5,7 +5,7 @@ import clsx from "clsx";
 import Check from '@/assets/images/icons/check';
 import ExclamationTriangle from '@/assets/images/icons/exclamation-triangle';
 import SkeletonLoader from "@/components/UI/SkeletonLoader";
-import { fieldToString, getAverageFieldConfidence, isDocumentFieldValue } from "@/utils";
+import { fieldToString, getAverageFieldConfidence, isDocumentFieldValue } from "@mortgage-document-ai/models/utils";
 
 
 interface EditorFieldProps {

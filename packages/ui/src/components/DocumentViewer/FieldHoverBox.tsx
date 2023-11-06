@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { HoveredField, useDocumentContext } from "../DocumentProvider";
-import { getFieldModelByPath } from "@/utils";
+import { getFieldModelByPath } from "@mortgage-document-ai/models/utils";
 
 
 interface FieldHoverBoxProps {

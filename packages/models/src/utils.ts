@@ -1,15 +1,6 @@
-import { LocalFile } from "@/types";
-import { DocumentData, DocumentEntityData, DocumentFieldValue, DocumentFieldValueUnion, FlatDocumentData, Form1003 } from "@mortgage-document-ai/models";
-import { get, set } from "idb-keyval";
+import { DocumentData, DocumentEntityData, DocumentFieldValue, DocumentFieldValueUnion, FlatDocumentData, Form1003 } from "./index";
 import getValueByPath from 'get-value';
 
-export const getLocalFile = async (fileStorageKey: string) => {
-    return await get(fileStorageKey) as LocalFile;
-}
-
-export const setLocalFile = async (fileStorageKey: string, localFile: LocalFile) => {
-    await set(fileStorageKey, localFile);
-};
 
 export function flattenDocument(ob: DocumentData | DocumentFieldValueUnion) {
 
@@ -102,12 +93,4 @@ export function fieldToString(field: DocumentFieldValueUnion) {
         value = isDocumentFieldValue(field) ? field.value : documentEntityToString(field);
 
     return value;
-}
-
-export function documentDataToJson(documentData: DocumentData) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(JSON.stringify(documentData));
-
-    const base64 = btoa(String.fromCharCode(...data));
-    return base64;
 }

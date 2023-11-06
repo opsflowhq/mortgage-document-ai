@@ -2,7 +2,7 @@ import DocumentPage from "./DocumentPage";
 import { RefObject, memo, useRef } from "react";
 import { useDocumentContext } from "../DocumentProvider";
 import DocumentPageSkeleton from "./DocumentPageSkeleton";
-import { filterFlatDocumentByPage } from "@/utils";
+import { filterFlatDocumentByPage } from "@mortgage-document-ai/models/utils";
 import Alert from "../UI/Alert";
 import Link from "next/link";
 

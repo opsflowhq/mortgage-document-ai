@@ -7,3 +7,4 @@ dist/**
 **/**/secretes
 **/**/dist/
 static/
+**/**/.DS_Store

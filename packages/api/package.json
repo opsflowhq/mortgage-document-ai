@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "@mortgage-document-ai/api",
   "version": "1.0.0",
   "description": "API for 1003 processing",
   "main": "app.ts",

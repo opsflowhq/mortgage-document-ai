@@ -1,6 +1,6 @@
 import { DocumentData, DocumentMeta, FlatDocumentData, Form1003, Page } from '@mortgage-document-ai/models';
 import React, { createContext, useContext, useState } from 'react';
-import { flattenDocument } from '@/utils';
+import { flattenDocument } from '@mortgage-document-ai/models/utils';
 
 
 interface DocumentProviderProps extends DocumentContextDefaultData {
