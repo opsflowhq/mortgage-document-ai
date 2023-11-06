@@ -1,41 +1,28 @@
-import { DocumentData, Form1003, Page } from "@urla1003/types";
-import DocumentField from "./EditorField";
 import EditorEntity from "./EditorEntity";
-import { FieldHoverEvent } from "../DocumentViewer/BoundingBoxCanvas";
 import { useDocumentContext } from "../DocumentProvider";
 import Button from "../UI/Button";
 import ArrowUpRight from "@/assets/images/icons/arrow-up-right";
 import ArrowLeft from "@/assets/images/icons/arrow-left";
 import Link from "next/link";
 import SkeletonLoader from "../UI/SkeletonLoader";
-import Lottie from "lottie-react";
-import circleLoaderAnimation from '@/assets/animations/circle-loader3.json';
-import CircleLoader from "../UI/CircleLoader/CircleLoader";
 import LoadingIndicator from "./LoadingIndicator";
-import { documentDataToJson } from "@/utils";
-import { useCallback } from "react";
-import axios from "axios";
-import posthog from "posthog-js";
 
 
 
-interface DocumentEditorProps {
-    // onViewJSON?: () => void;
-    // isLoading: boolean;
-    // documentModel: Form1003.DocumentModel; 
-    // documentData?: DocumentData;
-    // hoveredField: FieldHoverEvent | null;
-}
 
-export default function DocumentEditor({ }: DocumentEditorProps) {
 
-    // console.log('Data schema ->', documentModel);
-    // console.log('Data ->', documentData);
+export default function DocumentEditor() {
 
-    const { documentModel, documentData, documentMeta, isLoading, isDocumentProcessing, isGeneratingJSON, onViewJSON } = useDocumentContext();
+    const {
+        documentModel,
+        documentData,
+        documentMeta,
+        isLoading,
+        isDocumentProcessing,
+        isGeneratingJSON,
+        onViewJSON } = useDocumentContext();
 
     const [fileName, fileExtension] = documentMeta ? documentMeta?.sourceFileName.split('.') : [];
-
 
 
     return (
@@ -86,8 +73,6 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
             </div>
             <div className="p-4 border-t">
                 <Button
-                    // href={`https://jsonhero.io/new?j=${documentDataToJson(documentData)}`}
-                    // target="_blank"
                     style="primary"
                     icon={ArrowUpRight}
                     disabled={isLoading}

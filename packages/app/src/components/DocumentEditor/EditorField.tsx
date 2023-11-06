@@ -5,13 +5,11 @@ import clsx from "clsx";
 import Check from '@/assets/images/icons/check';
 import ExclamationTriangle from '@/assets/images/icons/exclamation-triangle';
 import SkeletonLoader from "@/components/UI/SkeletonLoader";
-import { documentEntityToString, fieldToString, getAverageFieldConfidence, isDocumentFieldValue } from "@/utils";
+import { fieldToString, getAverageFieldConfidence, isDocumentFieldValue } from "@/utils";
 
 
 interface EditorFieldProps {
     label: string;
-    // value?: string | null;
-    // confidence?: number;
     field?: DocumentFieldValueUnion;
     isHovering: boolean;
     isEditing: boolean;
@@ -42,8 +40,6 @@ export default function DocumentField({ label, field, isHovering, isEditing, isL
     useEffect(() => {
 
         if (isHovering && elementRef.current) {
-            // elementRef.current?.scrollIntoView({behavior: "smooth", block: 'center'});
-
             const element = elementRef.current;
             const rect = element.getBoundingClientRect();
 
@@ -66,17 +62,6 @@ export default function DocumentField({ label, field, isHovering, isEditing, isL
         icon: confidence && confidence < 95 ? <ExclamationTriangle className="w-4 h-4 stroke-warning stroke-2" /> : <Check className="w-4 h-4 stroke-success stroke-2" />,
         toolTipText: `${confidence}% confidence`
     };
-
-    // if () {
-    //     confidenceBadge.icon = ExclamationTriangleImg;
-    //     confidenceBadge.toolTipText = `Low confidence. `
-    // }
-
-    // let displayValue: string | undefined;
-
-    // console.log('Display value', value)
-    // if (typeof value === 'object') displayValue = JSON.stringify(value);
-    // else displayValue = value;
 
 
     return (

@@ -1,18 +1,11 @@
-import { DocumentData, DocumentFieldValue, Page } from "@urla1003/types";
-import Image from 'next/image'
-import { RefObject, useEffect, useRef, useState } from "react";
-import { Svg, Distance, Circle } from 'react-svg-path';
-import { FieldHoverEvent } from "./BoundingBoxCanvas";
+import { useEffect, useRef } from "react";
 import { HoveredField, useDocumentContext } from "../DocumentProvider";
 import { getFieldModelByPath } from "@/utils";
 
 
 interface FieldHoverBoxProps {
-    // pageNumber: number;
-    // pageData: DocumentData;
     isHovered: boolean;
     hoveredField: HoveredField;
-    // documentViewerRef: RefObject<HTMLDivElement>;
     onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -25,8 +18,6 @@ export default function FieldHoverBox({ onMouseLeave, hoveredField, isHovered }:
     useEffect(() => {
 
         if (isHovered && elementRef.current) {
-            // elementRef.current?.scrollIntoView({behavior: "smooth", block: 'center'});
-
             const element = elementRef.current;
             const rect = element.getBoundingClientRect();
 
@@ -43,14 +34,9 @@ export default function FieldHoverBox({ onMouseLeave, hoveredField, isHovered }:
     }, [isHovered])
 
     let fieldHoverBox: JSX.Element | null = null;
-    // const isHovered = hoveredField?.pageNumber === pageNumber
 
-    // const fieldId = `${hoveredField?.entityKey}.${hoveredField?.fieldKey}`;
     const boundingBoxSvg = document.querySelector(`polygon[data-field-id="${hoveredField}"`); //Defined at BoundingBox.tsx
-    // const documentViewerContainer = documentViewerRef.current;
     const documentViewerContainer = boundingBoxSvg?.parentElement;
-
-    console.log({ boundingBoxSvg, documentViewerContainer })
 
     if (boundingBoxSvg && documentViewerContainer) {
         const boundingBoxRect = boundingBoxSvg.getBoundingClientRect();
@@ -58,8 +44,6 @@ export default function FieldHoverBox({ onMouseLeave, hoveredField, isHovered }:
 
         const offsetX = boundingBoxRect.left - containerRect.left;
         const offsetY = boundingBoxRect.top - containerRect.top + boundingBoxRect.height;
-
-        console.log({ boundingBoxRect, containerRect });
 
 
 

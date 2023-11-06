@@ -7,7 +7,6 @@ import Image from 'next/image'
 import useSWR from "swr";
 import DocumentViewer from "@/components/DocumentViewer/DocumentViewer";
 import DocumentEditor from "@/components/DocumentEditor/DocumentEditor";
-import { FieldHoverEvent } from "@/components/DocumentViewer/BoundingBoxCanvas";
 import { DocumentProvider } from "@/components/DocumentProvider";
 import { get, set } from "idb-keyval";
 import { LocalFile } from "@/types";
@@ -35,7 +34,7 @@ const processDocument = async (fileStorageKey: string) => {
             body: formData
         });
 
-        console.log('PAID REQUEST TO THE SERVER');
+        console.log('PAID REQUEST TO THE DOCUMENT AI');
 
         const processedDocument = await response.json() as ProcessedDocument;
         await setLocalFile(fileStorageKey, { ...file, processedDocument });
@@ -43,7 +42,6 @@ const processDocument = async (fileStorageKey: string) => {
         posthog.capture('process_document_success', { response_source: "api" });
         return processedDocument;
     } catch (e) {
-        //Add error notification
         console.log(e)
         posthog.capture('process_document_failure');
         alert('Something went wrong. Please refresh the page and try again.');

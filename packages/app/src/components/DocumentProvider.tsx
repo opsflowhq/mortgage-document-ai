@@ -1,6 +1,5 @@
 import { DocumentData, DocumentMeta, FlatDocumentData, Form1003, Page } from '@urla1003/types';
 import React, { createContext, useContext, useState } from 'react';
-import { FieldHoverEvent } from './DocumentViewer/BoundingBoxCanvas';
 import { flattenDocument } from '@/utils';
 
 

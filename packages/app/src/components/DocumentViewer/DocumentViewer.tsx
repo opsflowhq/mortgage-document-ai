@@ -1,38 +1,16 @@
 import DocumentPage from "./DocumentPage";
-import { DocumentData, DocumentEntityData, DocumentFieldValue, FlatDocumentData, Page } from "@urla1003/types";
-import { FC, RefObject, memo, useRef } from "react";
-import { FieldHoverEvent, FieldHoverEventHandler } from "./BoundingBoxCanvas";
+import { RefObject, memo, useRef } from "react";
 import { useDocumentContext } from "../DocumentProvider";
-import FieldHoverBox from "./FieldHoverBox";
 import DocumentPageSkeleton from "./DocumentPageSkeleton";
 import { filterFlatDocumentByPage } from "@/utils";
-import Button from "../UI/Button";
-import ExclamationCircle from "@/assets/images/icons/exclamation-circle";
 import Alert from "../UI/Alert";
 import Link from "next/link";
 
 
-interface DocumentViewerProps {
-    // isLoading: boolean,
-    // documentPages?: Page[],
-    // documentData?: DocumentData,
-    // hoveredField: FieldHoverEvent | null;
-    // onFieldHover: FieldHoverEventHandler;
-}
+function DocumentViewer() {
 
-function DocumentViewer({ }: DocumentViewerProps) {
-
-    const { documentData, flatDocumentData, documentPages, isLoading } = useDocumentContext();
+    const { flatDocumentData, documentPages, isLoading } = useDocumentContext();
     const documentViewerRef: RefObject<HTMLDivElement> = useRef(null);
-
-    // console.log('Document Viewer Render');
-    // console.log('FLATTEN', {
-    //     nested: documentData,
-    //     flat: flattenObj(documentData)
-    // });
-
-
-    // console.log('Skeleton -> ', DocumentPage.type.Skeleton);
 
     return (
         <div className="bg-background-dark bg-dotted-spacing-4 bg-dotted-gray-400 h-full w-full  overflow-auto" >
@@ -47,8 +25,6 @@ function DocumentViewer({ }: DocumentViewerProps) {
                             key={p.pageNumber}
                             page={p}
                             flatPageData={flatPageData}
-                        // onFieldHover={onFieldHover}
-                        // hoveredField={hoveredField}
                         />
                     );
                 })}

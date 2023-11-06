@@ -2,8 +2,6 @@
 
 import { ChangeEvent, DragEvent, SyntheticEvent, useRef, useState } from 'react';
 import CloudArrowUp from '@/assets/images/icons/cloud-arrow-up';
-import { XMark } from '@/assets/images/icons/x-mark';
-import DocumentIcon from '@/assets/images/icons/document-icon';
 import FileListItem from './FileListItem';
 import clsx from 'clsx';
 
@@ -17,15 +15,9 @@ interface FileDropProps {
 
 const FileDrop = ({ onFilesChange, files, multiple = true, accept }: FileDropProps) => {
     const [isOver, setIsOver] = useState(false);
-    // const [files, setFiles] = useState<File[]>([]);
-
-    console.log({ files });
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-
-
-    // Define the event handlers
     const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         setIsOver(true);
@@ -68,7 +60,6 @@ const FileDrop = ({ onFilesChange, files, multiple = true, accept }: FileDropPro
     }
 
     const handleRemoveFile = (fileIndex: number) => {
-        console.log(fileIndex);
         const newFilesList = [...files];
         newFilesList.splice(fileIndex, 1);
         onFilesChange(newFilesList);

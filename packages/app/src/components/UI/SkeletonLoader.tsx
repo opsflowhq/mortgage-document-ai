@@ -9,7 +9,7 @@ interface SkeletonLoaderProps {
 }
 
 export default function SkeletonLoader({ width, height, children, isLoading }: SkeletonLoaderProps) {
-    
+
     if (isLoading === false) return children;
 
     return (
@@ -17,7 +17,6 @@ export default function SkeletonLoader({ width, height, children, isLoading }: S
             speed={2}
             width={width}
             height={height}
-            // viewBox={`0 0 ${width} ${height}`}
             backgroundColor="#f3f3f3"
             foregroundColor="#ecebeb"
         >

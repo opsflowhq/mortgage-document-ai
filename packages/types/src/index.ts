@@ -306,14 +306,6 @@ export namespace Form1003 {
 				name: { key: FieldId.BORROWER_NAME_1A, label: "Name" },
 				ssn: { key: FieldId.BORROWER_SOCIAL_SECURITY_NUMBER_1A, label: "SSN" },
 				dob: { key: FieldId.BORROWER_DATE_OF_BIRTH_1A, label: "Date of Birth" },
-				// citizenship: {
-				// 	key: FieldId.BORROWER_CITIZENSHIP_1A,
-				// 	label: "Citizenship",
-				// },
-				// martialStatus: {
-				// 	key: FieldId.BORROWER_MARTIAL_STATUS,
-				// 	label: "Martial status",
-				// },
 				dependentsNumber: {
 					key: FieldId.BORROWER_DEPENDANTS_NUMBER_1A,
 					label: "Dependents number",
