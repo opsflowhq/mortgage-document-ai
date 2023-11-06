@@ -15,6 +15,7 @@ import Link from "next/link";
 import config from "@/utils/config";
 import { setLocalFile } from "@/utils";
 import Alert from "@/components/UI/Alert";
+import { usePostHog } from "posthog-js/react";
 
 
 const sampleFileUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/urla-samples/urla_borrower_information.pdf`;
@@ -30,6 +31,8 @@ export default function Home() {
     const [files, setFiles] = useState<File[]>([]);
     const [isLoading, setLoading] = useState<boolean>(false);
     const router = useRouter();
+    const posthog = usePostHog() //Product Analytics
+
 
     const processFile = async (file: File) => {
         const fileStorageKey = uuidv4();
@@ -41,12 +44,14 @@ export default function Home() {
         setLoading(true);
         const { data } = await axios.get<Blob>(sampleFileUrl, { responseType: 'blob' });
         await processFile(new File([data], 'sample_form_1003.pdf', { type: 'application/pdf' }));
+        posthog.capture('upload_file', { file_source: "sample" });
     };
 
 
     const extractDataHandler = async () => {
         setLoading(true);
         await processFile(files[0])
+        posthog.capture('upload_file', { document_source: "user" });
     }
 
 
@@ -57,7 +62,12 @@ export default function Home() {
                     <span className="font-bold">mortgage</span>
                     <span>flow</span>
                 </a>
-                <a href="" className="font-medium flex gap-2 items-center text-sm">
+                <a
+                    href="https://github.com/mortgageflow/mortgage-document-extractor"
+                    target="_blank"
+                    className="font-medium flex gap-2 items-center text-sm"
+                    onClick={() => posthog.capture('get_source_code')}
+                >
                     {githubLogo}
                     <span>
                         Get source code
@@ -70,10 +80,10 @@ export default function Home() {
                     <h2 className="text-sm mb-4">OCR & AI FOR MORTGAGE DOCUMENTS</h2>
                     <h1 className="text-3xl font-bold mb-4">Extract data from the URLA (Form 1003)</h1>
                     <p className="text-sm text-primary-light mb-4">This tool was built to demonstrate the use of OCR & AI to extract structured data from mortgage documents. To learn how it works and get source code, please follow the link bellow.</p>
-                    <Button style="underline" href="/" icon={ArrowUpRight}>Learn more</Button>
+                    <Button style="underline" href="https://github.com/mortgageflow/mortgage-document-extractor" icon={ArrowUpRight}>Learn more</Button>
                 </div>
 
-                <div className="pb-12  border-background-dark border-b">
+                <div className="pb-12 mb-12  border-background-dark border-b">
                     <div className="mb-4">
                         <FileDrop
                             files={files}
@@ -101,10 +111,6 @@ export default function Home() {
                     </Button>
                 </div>
 
-
-
-
-
                 <Alert
                     style="info"
                 >
@@ -112,7 +118,6 @@ export default function Home() {
                         While this demo is designed for processing the Form 1003, the same technology can be used to extract data from any mortgage document. If you need guidance on implementing this, please don&apos;t hesitate to <Link href={'https://www.mortgageflow.io/book-a-demo'} target="_blank" className="font-semibold">contact us</Link>.
                     </p>
                 </Alert>
-                {/* </div> */}
             </main>
         </>
     )

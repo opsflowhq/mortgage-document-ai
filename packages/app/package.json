@@ -19,6 +19,7 @@
     "lottie-react": "^2.4.0",
     "next": "latest",
     "pdfjs-dist": "^3.11.174",
+    "posthog-js": "^1.88.1",
     "pretty-bytes": "^6.1.1",
     "react": "latest",
     "react-content-loader": "^6.2.1",

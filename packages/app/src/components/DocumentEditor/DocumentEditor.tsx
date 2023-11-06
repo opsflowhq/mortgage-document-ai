@@ -15,10 +15,12 @@ import LoadingIndicator from "./LoadingIndicator";
 import { documentDataToJson } from "@/utils";
 import { useCallback } from "react";
 import axios from "axios";
+import posthog from "posthog-js";
 
 
 
 interface DocumentEditorProps {
+    // onViewJsonData?: () => void;
     // isLoading: boolean;
     // documentModel: Form1003.DocumentModel; 
     // documentData?: DocumentData;
@@ -40,6 +42,7 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
             content: documentData,
         });
         window.open(data.location, '_blank');
+        posthog.capture('view_json_data');
     }, [documentData, documentMeta]);
 
     return (

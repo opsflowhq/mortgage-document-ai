@@ -12,13 +12,19 @@ import { DocumentProvider } from "@/components/DocumentProvider";
 import { get, set } from "idb-keyval";
 import { LocalFile } from "@/types";
 import { getLocalFile, setLocalFile } from "@/utils";
+import { usePostHog } from "posthog-js/react";
+import posthog from "posthog-js";
 
 
 const processDocument = async (fileStorageKey: string) => {
     try {
+        posthog.capture('process_document_intent');
+
         const file = await getLocalFile(fileStorageKey);
-        console.log({ file })
-        if (file.processedDocument) return file.processedDocument;
+        if (file.processedDocument) {
+            posthog.capture('process_document_success', { response_source: "local-cache" });
+            return file.processedDocument;
+        }
 
         const formData = new FormData();
         formData.append('document', file.source);
@@ -33,9 +39,13 @@ const processDocument = async (fileStorageKey: string) => {
         const processedDocument = await response.json() as ProcessedDocument;
         await setLocalFile(fileStorageKey, { ...file, processedDocument });
 
+        posthog.capture('process_document_success', { response_source: "api" });
         return processedDocument;
     } catch (e) {
+        //Add error notification
         console.log(e)
+        posthog.capture('process_document_failure');
+        alert('Something went wrong. Please refresh the page and try again.');
     }
 }
 
@@ -46,6 +56,7 @@ export default function DocumentPage({ params }: { params: { documentId: string 
 
 
     const { data: processedDocument, error, isLoading: isDocumentProcessing } = useSWR(fileStorageKey, processDocument, {});
+
 
     const documentModel = Form1003.documentModel;
     const documentData = processedDocument?.data;
