@@ -1,6 +1,6 @@
 'use client';
 
-import { Document, Form1003, ProcessedDocument } from "@urla1003/types";
+import { Document, Form1003, ProcessedDocument } from "@mortgage-document-ai/models";
 import { useCallback, useEffect, useState } from "react";
 import Image from 'next/image'
 

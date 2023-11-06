@@ -1,4 +1,4 @@
-import { FlatDocumentData, Page } from "@urla1003/types";
+import { FlatDocumentData, Page } from "@mortgage-document-ai/models";
 import { memo } from "react";
 import BoundingBox from "./BoundingBox";
 import { useDocumentContext } from "../DocumentProvider";

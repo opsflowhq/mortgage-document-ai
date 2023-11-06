@@ -1,4 +1,4 @@
-import { ProcessedDocument } from "@urla1003/types";
+import { ProcessedDocument } from "@mortgage-document-ai/models";
 
 export interface LocalFile {
     source: File,

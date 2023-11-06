@@ -1,5 +1,5 @@
 import { LocalFile } from "@/types";
-import { DocumentData, DocumentEntityData, DocumentFieldValue, DocumentFieldValueUnion, FlatDocumentData, Form1003 } from "@urla1003/types";
+import { DocumentData, DocumentEntityData, DocumentFieldValue, DocumentFieldValueUnion, FlatDocumentData, Form1003 } from "@mortgage-document-ai/models";
 import { get, set } from "idb-keyval";
 import getValueByPath from 'get-value';
 

@@ -1,4 +1,4 @@
-import { DocumentData, DocumentMeta, FlatDocumentData, Form1003, Page } from '@urla1003/types';
+import { DocumentData, DocumentMeta, FlatDocumentData, Form1003, Page } from '@mortgage-document-ai/models';
 import React, { createContext, useContext, useState } from 'react';
 import { flattenDocument } from '@/utils';
 

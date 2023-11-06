@@ -13,7 +13,7 @@
   "dependencies": {
     "@google-cloud/documentai": "^8.0.1",
     "@types/multer": "^1.4.8",
-    "@urla1003/types": "*",
+    "@mortgage-document-ai/models": "*",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",

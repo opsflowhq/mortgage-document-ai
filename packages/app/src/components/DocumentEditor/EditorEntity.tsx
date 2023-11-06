@@ -1,4 +1,4 @@
-import { DocumentEntityData, DocumentFieldValue, Form1003 } from "@urla1003/types";
+import { DocumentEntityData, DocumentFieldValue, Form1003 } from "@mortgage-document-ai/models";
 import EditorField from "./EditorField";
 import { useDocumentContext } from "../DocumentProvider";
 

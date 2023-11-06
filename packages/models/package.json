@@ -1,5 +1,5 @@
 {
-    "name": "@urla1003/types",
+    "name": "@mortgage-document-ai/models",
     "type": "commonjs",
     "version": "1.0.0",
     "main": "./dist/index.js",

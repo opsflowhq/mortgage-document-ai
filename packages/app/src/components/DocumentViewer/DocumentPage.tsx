@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { FlatDocumentData, Page } from "@urla1003/types";
+import { FlatDocumentData, Page } from "@mortgage-document-ai/models";
 import Image from 'next/image'
 import BoundingBoxCanvas from "./BoundingBoxCanvas";
 

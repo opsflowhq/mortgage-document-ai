@@ -1,4 +1,4 @@
-import { DocumentData, DocumentFieldValue, Page } from "@urla1003/types";
+import { DocumentData, DocumentFieldValue, Page } from "@mortgage-document-ai/models";
 import Image from 'next/image'
 import { useState } from "react";
 import { Svg, Distance, Circle } from 'react-svg-path';

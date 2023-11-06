@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { DocumentFieldValueUnion, Page } from "@urla1003/types";
+import { DocumentFieldValueUnion, Page } from "@mortgage-document-ai/models";
 import clsx from "clsx";
 
 import Check from '@/assets/images/icons/check';

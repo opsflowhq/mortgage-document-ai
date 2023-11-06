@@ -21,7 +21,7 @@ import {
     PageAnchor,
     Point,
     ProcessedDocument,
-} from "@urla1003/types";
+} from "@mortgage-document-ai/models";
 
 const documentAiClient = new DocumentProcessorServiceClient();
 const processorName =
