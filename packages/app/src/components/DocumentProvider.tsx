@@ -12,11 +12,13 @@ interface DocumentProviderProps extends DocumentContextDefaultData {
 interface DocumentContextDefaultData {
     isLoading: boolean;
     isDocumentProcessing: boolean;
+    isGeneratingJSON?: boolean;
     documentModel: Form1003.DocumentModel;
     documentData?: DocumentData;
     flatDocumentData?: FlatDocumentData;
     documentPages?: Page[];
     documentMeta?: DocumentMeta;
+    onViewJSON?: () => void;
 }
 
 export type HoveredField = null | string; //Path to the field e.g. otherIncome.sources.1.monthlyIncome

@@ -20,7 +20,7 @@ import posthog from "posthog-js";
 
 
 interface DocumentEditorProps {
-    // onViewJsonData?: () => void;
+    // onViewJSON?: () => void;
     // isLoading: boolean;
     // documentModel: Form1003.DocumentModel; 
     // documentData?: DocumentData;
@@ -32,18 +32,11 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
     // console.log('Data schema ->', documentModel);
     // console.log('Data ->', documentData);
 
-    const { documentModel, documentData, documentMeta, isLoading, isDocumentProcessing } = useDocumentContext();
+    const { documentModel, documentData, documentMeta, isLoading, isDocumentProcessing, isGeneratingJSON, onViewJSON } = useDocumentContext();
 
     const [fileName, fileExtension] = documentMeta ? documentMeta?.sourceFileName.split('.') : [];
 
-    const handleViewJson = useCallback(async () => {
-        const { data } = await axios.post('https://jsonhero.io/api/create.json', {
-            title: documentMeta?.sourceFileName,
-            content: documentData,
-        });
-        window.open(data.location, '_blank');
-        posthog.capture('view_json_data');
-    }, [documentData, documentMeta]);
+
 
     return (
         <div className="h-screen shadow-2xl flex flex-col relative text-sm z-10">
@@ -98,7 +91,8 @@ export default function DocumentEditor({ }: DocumentEditorProps) {
                     style="primary"
                     icon={ArrowUpRight}
                     disabled={isLoading}
-                    onClick={handleViewJson}
+                    isLoading={isGeneratingJSON}
+                    onClick={onViewJSON}
                 >
                     View JSON data
                 </Button>

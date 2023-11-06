@@ -14,6 +14,7 @@ import { LocalFile } from "@/types";
 import { getLocalFile, setLocalFile } from "@/utils";
 import { usePostHog } from "posthog-js/react";
 import posthog from "posthog-js";
+import axios from "axios";
 
 
 const processDocument = async (fileStorageKey: string) => {
@@ -54,6 +55,7 @@ const processDocument = async (fileStorageKey: string) => {
 export default function DocumentPage({ params }: { params: { documentId: string } }) {
     const fileStorageKey = params.documentId;
 
+    const [isGeneratingJSON, setGeneratingJSON] = useState(false);
 
     const { data: processedDocument, error, isLoading: isDocumentProcessing } = useSWR(fileStorageKey, processDocument, {});
 
@@ -63,19 +65,36 @@ export default function DocumentPage({ params }: { params: { documentId: string 
     const documentPages = processedDocument?.pages;
     const documentMeta = processedDocument?.meta;
 
+    const handleViewJSON = useCallback(async () => {
+        setGeneratingJSON(true);
+        const { data } = await axios.post('https://jsonhero.io/api/create.json', {
+            title: documentMeta?.sourceFileName,
+            content: documentData,
+        });
+        window.open(data.location, '_blank');
+        posthog.capture('view_json_data');
+        setGeneratingJSON(false);
+    }, [documentData, documentMeta]);
+
 
 
 
     return (
         <div className="grid grid-cols-[450px,1fr] h-screen">
             <DocumentProvider
+                //Loading status
                 isLoading={!processedDocument && !error}
                 isDocumentProcessing={isDocumentProcessing}
+                isGeneratingJSON={isGeneratingJSON}
+
+                //Data
                 documentData={documentData}
                 documentModel={documentModel}
                 documentPages={documentPages}
                 documentMeta={documentMeta}
 
+                //Events
+                onViewJSON={handleViewJSON}
             >
                 <DocumentEditor />
                 <DocumentViewer />
