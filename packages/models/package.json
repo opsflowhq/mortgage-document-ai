@@ -4,16 +4,29 @@
     "version": "1.0.0",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
+    "typesVersions": {
+        "*": {
+            "*": [
+                "dist/*",
+                "dist/index.d.ts"
+            ]
+        }
+    },
     "exports": {
         ".": {
             "require": "./dist/index.js",
             "import": "./dist/index.js",
             "types": "./dist/index.d.ts"
         },
-        "./*": {
-            "import": "./dist/*.js",
-            "require": "./dist/*.js",
-            "types": "./dist/*.d.ts"
+        "./utils": {
+            "import": "./dist/utils.js",
+            "require": "./dist/utils.js",
+            "types": "./dist/utils.d.ts"
+        },
+        "./documents": {
+            "import": "./dist/documents/index.js",
+            "require": "./dist/documents/index.js",
+            "types": "./dist/documents/index.d.ts"
         }
     },
     "scripts": {
@@ -24,6 +37,7 @@
         "typescript": "5.2.2"
     },
     "dependencies": {
+        "@google-cloud/documentai": "^8.1.0",
         "get-value": "^3.0.1"
     }
 }

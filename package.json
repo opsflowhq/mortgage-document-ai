@@ -10,9 +10,9 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build --no-cache --force",
-    "models": "yarn workspaces @mortgage-document-ai/models",
-    "ui": "yarn workspaces @mortgage-document-ai/ui",
-    "api": "yarn workspaces @mortgage-document-ai/api"
+    "models": "yarn workspace @mortgage-document-ai/models",
+    "ui": "yarn workspace @mortgage-document-ai/ui",
+    "api": "yarn workspace @mortgage-document-ai/api"
   },
   "devDependencies": {
     "turbo": "^1.10.16",

@@ -1,6 +1,6 @@
 'use client';
 
-import { Document, Form1003, ProcessedDocument } from "@mortgage-document-ai/models";
+import { ProcessedDocument, documentModel as Form1003 } from "@mortgage-document-ai/models";
 import { useCallback, useEffect, useState } from "react";
 import Image from 'next/image'
 
@@ -58,7 +58,7 @@ export default function DocumentPage({ params }: { params: { documentId: string 
     const { data: processedDocument, error, isLoading: isDocumentProcessing } = useSWR(fileStorageKey, processDocument, {});
 
 
-    const documentModel = Form1003.documentModel;
+    const documentModel = Form1003;
     const documentData = processedDocument?.data;
     const documentPages = processedDocument?.pages;
     const documentMeta = processedDocument?.meta;

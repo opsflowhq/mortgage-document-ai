@@ -1,4 +1,4 @@
-import { DocumentEntityData, DocumentFieldValue, Form1003 } from "@mortgage-document-ai/models";
+import { DocumentEntityData, DocumentEntityFieldsModel, DocumentFieldValue } from "@mortgage-document-ai/models";
 import EditorField from "./EditorField";
 import { useDocumentContext } from "../DocumentProvider";
 
@@ -6,7 +6,7 @@ import { useDocumentContext } from "../DocumentProvider";
 interface EditorEntityProps {
     label: string;
     entityKey: string;
-    fieldsModel: Form1003.DocumentEntityFieldsModel;
+    fieldsModel: DocumentEntityFieldsModel;
     fieldsValue?: DocumentEntityData;
 }
 

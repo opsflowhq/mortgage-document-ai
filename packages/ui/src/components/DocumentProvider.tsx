@@ -1,4 +1,4 @@
-import { DocumentData, DocumentMeta, FlatDocumentData, Form1003, Page } from '@mortgage-document-ai/models';
+import { DocumentData, DocumentMeta, DocumentModel, FlatDocumentData, Page } from '@mortgage-document-ai/models';
 import React, { createContext, useContext, useState } from 'react';
 import { flattenDocument } from '@mortgage-document-ai/models/utils';
 
@@ -12,7 +12,7 @@ interface DocumentContextDefaultData {
     isLoading: boolean;
     isDocumentProcessing: boolean;
     isGeneratingJSON?: boolean;
-    documentModel: Form1003.DocumentModel;
+    documentModel: DocumentModel;
     documentData?: DocumentData;
     flatDocumentData?: FlatDocumentData;
     documentPages?: Page[];
