@@ -1,10 +1,5 @@
 import { DocumentModel } from "../index";
 
-export const documentMeta = {
-    slug: "urla-form-1003",
-    googleProcessorName: 'projects/614556138526/locations/us/processors/a596e4ceda5829e',
-};
-
 export enum EntityId {
     "LENDER_LOAN_NUMBER" = "lender_loan_number",
     "AGENCY_CASE_NUMBER" = "agency_case_number",
@@ -752,3 +747,32 @@ export const documentModel: DocumentModel<EntityId> = {
         }
     }
 };
+
+const document = {
+    slug: 'urla-form-1003',
+
+    //It make takes multiple processors to process entire document
+    //For example google doc ai has limitation for 150 entities per processor
+    //So to process entire URLA Form 1003 it might take 3 - 4 processors
+    //Other than that you can layer multiple processors to extract additional entities like signatures, radio buttons, etc
+    processors: [
+        {
+            pageRange: {
+                from: 1,
+                to: 3
+            },
+            name: 'projects/614556138526/locations/us/processors/a596e4ceda5829e'
+        }
+    ],
+
+    //List of the ids of the entities extracted by the processors
+    entities: EntityId,
+
+
+    //Mapping of the entities into the usable format
+    model: documentModel,
+};
+
+export default document;
+
+
