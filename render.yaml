@@ -4,12 +4,12 @@ services:
   name: api.demo.mortgageflow.io
   runtime: node
   rootDir: packages/api
-  buildCommand: cd ../..; yarn workspace @mortgage-document-ai/api install; yarn build --filter=api...
+  buildCommand: cd ../..; yarn workspace @mortgage-document-ai/api install; yarn build --filter=@mortgage-document-ai/api...
   startCommand: yarn start
 - type: web
   plan: starter
   name: demo.mortgageflow.io
   runtime: node
   rootDir: packages/ui
-  buildCommand: cd ../..; yarn workspace @mortgage-document-ai/ui install; yarn build --filter=ui...
+  buildCommand: cd ../..; yarn workspace @mortgage-document-ai/ui install; yarn build --filter=@mortgage-document-ai/ui...
   startCommand: yarn start
