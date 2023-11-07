@@ -1,10 +1,8 @@
-import ArrowUpRight from "@/assets/images/icons/arrow-up-right";
-import Link from "next/link";
-import React, { ReactElement, ReactNode, SVGProps } from "react";
-import Image from "next/image";
+import React, { SVGProps } from "react";
 import clsx from "clsx";
-import CircleLoader from "./CircleLoader/CircleLoader";
+import Link from "next/link";
 
+import CircleLoader from "./CircleLoader/CircleLoader";
 
 interface ButtonProps {
     href?: string;
@@ -31,8 +29,8 @@ export default function Button({ href, target, children, icon, onClick, style, s
 
     if (IconComponent && typeof IconComponent != 'string') image = <IconComponent className="h-4 w-4" />
 
-    if (isLoading) image = <CircleLoader 
-        className="h-4 w-4" 
+    if (isLoading) image = <CircleLoader
+        className="h-4 w-4"
         variant="white"
     />;
 

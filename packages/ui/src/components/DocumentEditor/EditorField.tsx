@@ -1,11 +1,13 @@
 import { useEffect, useRef } from "react";
-import { DocumentFieldValueUnion, Page } from "@mortgage-document-ai/models";
 import clsx from "clsx";
+
+import { DocumentFieldValueUnion } from "@mortgage-document-ai/models";
+import { fieldToString, getAverageFieldConfidence } from "@mortgage-document-ai/models/utils";
+
+import SkeletonLoader from "@/components/UI/SkeletonLoader";
 
 import Check from '@/assets/images/icons/check';
 import ExclamationTriangle from '@/assets/images/icons/exclamation-triangle';
-import SkeletonLoader from "@/components/UI/SkeletonLoader";
-import { fieldToString, getAverageFieldConfidence, isDocumentFieldValue } from "@mortgage-document-ai/models/utils";
 
 
 interface EditorFieldProps {

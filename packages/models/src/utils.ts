@@ -1,5 +1,5 @@
-import { google } from "@google-cloud/documentai/build/protos/protos";
-import { DocumentData, DocumentEntityData, DocumentEntityFieldsModel, DocumentFieldModel, DocumentFieldValue, DocumentFieldValueUnion, DocumentModel, FlatDocumentData, Page, PageAnchor } from "./index";
+import { google } from "@google-cloud/documentai/build/protos/protos"; import { DocumentProcessorServiceClient } from "@google-cloud/documentai";
+import { DocumentData, DocumentEntityData, DocumentEntityFieldsModel, DocumentFieldModel, DocumentFieldValue, DocumentFieldValueUnion, DocumentModel, FlatDocumentData, Page, PageAnchor, DocumentType } from "./index";
 import getValueByPath from 'get-value';
 
 

@@ -1,6 +1,7 @@
 import { SVGProps } from 'react';
-import styles from './CircleLoader.module.css';
 import clsx from 'clsx';
+
+import styles from './CircleLoader.module.css';
 
 const circleLoaderVariants = {
     primary: {
@@ -16,7 +17,7 @@ interface CircleLoaderProps extends SVGProps<SVGSVGElement> {
     variant?: keyof typeof circleLoaderVariants;
 }
 
-export default function CircleLoader({className, variant = 'primary', ...props}: CircleLoaderProps) {
+export default function CircleLoader({ className, variant = 'primary', ...props }: CircleLoaderProps) {
     return (
         <svg className={clsx(styles.circularLoader, className)} viewBox="25 25 50 50" {...props}>
             <circle className={clsx(styles.loaderPathBg, circleLoaderVariants[variant].bg)} cx="50" cy="50" r="20" fill="none"></circle>

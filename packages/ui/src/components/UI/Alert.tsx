@@ -1,6 +1,7 @@
-import ExclamationCircle from "@/assets/images/icons/exclamation-circle";
-import clsx from "clsx";
 import { ReactNode } from "react";
+import clsx from "clsx";
+
+import ExclamationCircle from "@/assets/images/icons/exclamation-circle";
 
 const alertVariants = {
     info: {

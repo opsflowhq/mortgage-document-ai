@@ -1,19 +1,18 @@
 'use client';
 
-import { ProcessedDocument, documentModel as Form1003 } from "@mortgage-document-ai/models";
-import { useCallback, useEffect, useState } from "react";
-import Image from 'next/image'
-
+import { useCallback, useState } from "react";
 import useSWR from "swr";
+import axios from "axios";
+import posthog from "posthog-js";
+
+import { ProcessedDocument, documentTypes } from "@mortgage-document-ai/models";
+
+import { DocumentProvider } from "@/components/DocumentProvider";
 import DocumentViewer from "@/components/DocumentViewer/DocumentViewer";
 import DocumentEditor from "@/components/DocumentEditor/DocumentEditor";
-import { DocumentProvider } from "@/components/DocumentProvider";
-import { get, set } from "idb-keyval";
-import { LocalFile } from "@/types";
+
 import { getLocalFile, setLocalFile } from "@/utils";
-import { usePostHog } from "posthog-js/react";
-import posthog from "posthog-js";
-import axios from "axios";
+
 
 
 const processDocument = async (fileStorageKey: string) => {
@@ -58,7 +57,7 @@ export default function DocumentPage({ params }: { params: { documentId: string 
     const { data: processedDocument, error, isLoading: isDocumentProcessing } = useSWR(fileStorageKey, processDocument, {});
 
 
-    const documentModel = Form1003;
+    const documentModel = documentTypes.UrlaForm1003.model;
     const documentData = processedDocument?.data;
     const documentPages = processedDocument?.pages;
     const documentMeta = processedDocument?.meta;

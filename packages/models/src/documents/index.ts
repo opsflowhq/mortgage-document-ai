@@ -1,1 +1,2 @@
-export * from './urla-form-1003';
+export { UrlaForm1003 } from './urla-form-1003';
+

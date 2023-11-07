@@ -1,5 +1,7 @@
-import { FlatDocumentData, Page } from "@mortgage-document-ai/models";
 import { memo } from "react";
+
+import { FlatDocumentData } from "@mortgage-document-ai/models";
+
 import BoundingBox from "./BoundingBox";
 import { useDocumentContext } from "../DocumentProvider";
 import FieldHoverBox from "./FieldHoverBox";

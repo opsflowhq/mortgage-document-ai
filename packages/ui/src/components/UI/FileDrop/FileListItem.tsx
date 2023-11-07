@@ -1,6 +1,7 @@
-import DocumentIcon from "@/assets/images/icons/document-icon";
-import { XMark } from "@/assets/images/icons/x-mark";
 import prettyBytes from 'pretty-bytes';
+
+import DocumentIcon from "@/assets/images/icons/document-icon";
+import XMarkIcon from "@/assets/images/icons/x-mark";
 
 
 interface FileListItemProps {
@@ -20,7 +21,7 @@ export default function FileListItem({ fileName, fileSize, onRemove }: FileListI
                 <div className='text-primary-light'>{prettyBytes(fileSize)}</div>
             </div>
             <div>
-                <XMark
+                <XMarkIcon
                     onClick={onRemove}
                     className='w-6 h-6 cursor-pointer hover:stroke-primary-light'
                 />

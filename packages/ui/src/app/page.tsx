@@ -1,28 +1,25 @@
 'use client';
 
-import FileDrop from "@/components/UI/FileDrop/FileDrop";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import { useRouter } from "next/navigation";
-import ArrowUpRight from "@/assets/images/icons/arrow-up-right";
-import githubLogo from "@/assets/images/icons/github-logo";
-import Button from "@/components/UI/Button";
-import ArrowSmallRight from "@/assets/images/icons/arrow-small-right";
-import Link from "next/link";
-import { setLocalFile } from "@/utils";
-import Alert from "@/components/UI/Alert";
 import { usePostHog } from "posthog-js/react";
+import Link from "next/link";
+
+
+import FileDrop from "@/components/UI/FileDrop/FileDrop";
+import Alert from "@/components/UI/Alert";
+import Button from "@/components/UI/Button";
+
+import ArrowUpRight from "@/assets/images/icons/arrow-up-right";
+import ArrowSmallRight from "@/assets/images/icons/arrow-small-right";
+
+import { setLocalFile } from "@/utils";
+import HeaderBar from "@/components/layout/HeaderBar";
 
 
 const sampleFileUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/urla-samples/urla_borrower_information.pdf`;
-
-const toBase64 = (file: File) => new Promise<string | ArrayBuffer | null>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-});
 
 export default function Home() {
     const [files, setFiles] = useState<File[]>([]);
@@ -54,23 +51,7 @@ export default function Home() {
 
     return (
         <>
-            <header className="p-4 border-b sticky top-0 bg-white flex justify-between">
-                <a href="https://www.mortgageflow.io" target="_blank" className="text-xl">
-                    <span className="font-bold">mortgage</span>
-                    <span>flow</span>
-                </a>
-                <a
-                    href="https://github.com/mortgageflow/mortgage-document-extractor"
-                    target="_blank"
-                    className="font-medium flex gap-2 items-center text-sm"
-                    onClick={() => posthog.capture('get_source_code')}
-                >
-                    {githubLogo}
-                    <span>
-                        Get source code
-                    </span>
-                </a>
-            </header>
+            <HeaderBar onCTAClick={() => posthog.capture('get_source_code')} />
             <main className="max-w-screen-sm mx-auto my-20 px-4">
                 {/* <div className=""> */}
                 <div className="mb-12">

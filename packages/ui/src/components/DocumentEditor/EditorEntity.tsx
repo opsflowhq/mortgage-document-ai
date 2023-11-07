@@ -1,4 +1,5 @@
-import { DocumentEntityData, DocumentEntityFieldsModel, DocumentFieldValue } from "@mortgage-document-ai/models";
+import { DocumentEntityData, DocumentEntityFieldsModel } from "@mortgage-document-ai/models";
+
 import EditorField from "./EditorField";
 import { useDocumentContext } from "../DocumentProvider";
 

@@ -3,12 +3,12 @@
     "type": "commonjs",
     "version": "1.0.0",
     "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "types": "./dist/index.ts",
     "typesVersions": {
         "*": {
             "*": [
-                "dist/*",
-                "dist/index.d.ts"
+                "/*",
+                "/index.ts"
             ]
         }
     },

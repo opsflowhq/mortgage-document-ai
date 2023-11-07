@@ -1,5 +1,6 @@
-import { DocumentData, DocumentMeta, DocumentModel, FlatDocumentData, Page } from '@mortgage-document-ai/models';
 import React, { createContext, useContext, useState } from 'react';
+
+import { DocumentData, DocumentMeta, DocumentModel, FlatDocumentData, Page } from '@mortgage-document-ai/models';
 import { flattenDocument } from '@mortgage-document-ai/models/utils';
 
 
@@ -11,7 +12,7 @@ interface DocumentProviderProps extends DocumentContextDefaultData {
 interface DocumentContextDefaultData {
     isLoading: boolean;
     isDocumentProcessing: boolean;
-    isGeneratingJSON?: boolean;
+    isGeneratingJSON: boolean;
     documentModel: DocumentModel;
     documentData?: DocumentData;
     flatDocumentData?: FlatDocumentData;

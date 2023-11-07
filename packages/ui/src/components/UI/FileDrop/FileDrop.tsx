@@ -1,10 +1,10 @@
 'use client'
 
-import { ChangeEvent, DragEvent, SyntheticEvent, useRef, useState } from 'react';
-import CloudArrowUp from '@/assets/images/icons/cloud-arrow-up';
-import FileListItem from './FileListItem';
+import { ChangeEvent, DragEvent, useRef, useState } from 'react';
 import clsx from 'clsx';
 
+import FileListItem from './FileListItem';
+import CloudArrowUp from '@/assets/images/icons/cloud-arrow-up';
 
 interface FileDropProps {
     onFilesChange: (files: File[]) => void;
