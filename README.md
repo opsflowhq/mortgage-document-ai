@@ -14,7 +14,9 @@ To extract structured data from mortgage documents, you must have an ML model tr
 
 In this demo, we use a custom model that we trained to extract 130 fields from the 1st and 2nd sections of the URLA Form 1003.
 
-To create a custom model, we used **Custom Document Extractor** from **Google Document AI**.
+To create a custom model, we used **[Custom Document Extractor](https://cloud.google.com/document-ai/docs/workbench/build-custom-processor)** from **[Google Document AI](https://cloud.google.com/document-ai)**.
+
+Here's the [document schema](https://github.com/mortgageflow/mortgage-document-ai/blob/main/packages/models/src/documents/urla-form-1003.ts) that contains a list of entities extracted from Form 1003.
 
 ## What's inside
 
