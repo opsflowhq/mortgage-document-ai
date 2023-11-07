@@ -31,13 +31,16 @@
     },
     "scripts": {
         "dev": "tsc --watch",
-        "build": "tsc -b"
+        "clean": "rimraf dist",
+        "build": "yarn clean && tsc -b"
     },
     "devDependencies": {
+        "rimraf": "^5.0.5",
         "typescript": "5.2.2"
     },
     "dependencies": {
         "@google-cloud/documentai": "^8.1.0",
-        "get-value": "^3.0.1"
+        "get-value": "^3.0.1",
+        "rimraf": "^5.0.5"
     }
 }
