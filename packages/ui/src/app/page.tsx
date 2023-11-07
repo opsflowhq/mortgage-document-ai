@@ -53,12 +53,11 @@ export default function Home() {
         <>
             <HeaderBar onCTAClick={() => posthog.capture('get_source_code')} />
             <main className="max-w-screen-sm mx-auto my-20 px-4">
-                {/* <div className=""> */}
                 <div className="mb-12">
                     <h2 className="text-sm mb-4">OCR & AI FOR MORTGAGE DOCUMENTS</h2>
                     <h1 className="text-3xl font-bold mb-4">Extract data from the URLA (Form 1003)</h1>
                     <p className="text-sm text-primary-light mb-4">This tool was built to demonstrate the use of OCR & AI to extract structured data from mortgage documents. To learn how it works and get source code, please follow the link bellow.</p>
-                    <Button style="underline" href="https://github.com/mortgageflow/mortgage-document-extractor" icon={ArrowUpRight}>Learn more</Button>
+                    <Button style="underline" href="https://github.com/mortgageflow/mortgage-document-ai" target="_blank" icon={ArrowUpRight}>Learn more</Button>
                 </div>
 
                 <div className="pb-12 mb-12  border-background-dark border-b">

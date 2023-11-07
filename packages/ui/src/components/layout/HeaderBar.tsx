@@ -12,7 +12,7 @@ export default function HeaderBar({ onCTAClick }: HeaderBarProp) {
                 <span>flow</span>
             </a>
             <a
-                href="https://github.com/mortgageflow/mortgage-document-extractor"
+                href="https://github.com/mortgageflow/mortgage-document-ai"
                 target="_blank"
                 className="font-medium flex gap-2 items-center text-sm"
                 onClick={onCTAClick}
