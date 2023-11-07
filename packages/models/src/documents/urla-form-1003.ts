@@ -751,7 +751,7 @@ const documentModel: DocumentModel<Form1003EntityIds> = {
 export const UrlaForm1003: DocumentType<Form1003EntityIds> = {
     slug: 'urla-form-1003',
 
-    //It make takes multiple processors to process entire document
+    //It might take multiple processors to extract data from entire document
     //For example google doc ai has limitation for 150 entities per processor
     //So to process entire URLA Form 1003 it might take 3 - 4 processors
     //Other than that you can layer multiple processors to extract additional entities like signatures, radio buttons, etc
