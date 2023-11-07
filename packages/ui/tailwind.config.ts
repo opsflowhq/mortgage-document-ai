@@ -19,7 +19,6 @@ const config: Config = {
         white: "white",
         primary: {
           DEFAULT: "#000630",
-          // dark: '#000630',
           light: "#8F8F8F",
         },
         secondary: {
@@ -38,15 +37,7 @@ const config: Config = {
           DEFAULT: "#FF9900",
           light: "#FFF3E2",
         }
-      },
-      boxShadow: {
-        "reverse-lg": "-10px 10px 15px -3px rgb(0 0 0 / 0.1), -4px 4px 6px -4px rgb(0 0 0 / 0.1)",
-      },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+      }
     },
   },
   plugins: [tailwindcssDottedBackground],
