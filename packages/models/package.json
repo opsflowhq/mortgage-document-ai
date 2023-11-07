@@ -3,12 +3,12 @@
     "type": "commonjs",
     "version": "1.0.0",
     "main": "./dist/index.js",
-    "types": "./dist/index.ts",
+    "types": "./dist/index.d.ts",
     "typesVersions": {
         "*": {
             "*": [
-                "/*",
-                "/index.ts"
+                "dist/*",
+                "dist/index.d.ts"
             ]
         }
     },
@@ -22,11 +22,6 @@
             "import": "./dist/utils.js",
             "require": "./dist/utils.js",
             "types": "./dist/utils.d.ts"
-        },
-        "./documents": {
-            "import": "./dist/documents/index.js",
-            "require": "./dist/documents/index.js",
-            "types": "./dist/documents/index.d.ts"
         }
     },
     "scripts": {
